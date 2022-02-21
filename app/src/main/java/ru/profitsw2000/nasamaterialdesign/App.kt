@@ -1,0 +1,21 @@
+package ru.profitsw2000.nasamaterialdesign
+
+import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+
+class App: Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@App)
+            modules(appModule)
+        }
+        appInstance = this
+    }
+
+    companion object {
+        private var appInstance: App? = null
+    }
+
+}

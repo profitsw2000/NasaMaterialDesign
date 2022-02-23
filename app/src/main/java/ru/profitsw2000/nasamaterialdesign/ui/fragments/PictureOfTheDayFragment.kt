@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.profitsw2000.nasamaterialdesign.R
+import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment() {
+class PictureOfTheDayFragment : Fragment() {
+
+    private val viewModel: PictureOfTheDayViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +27,6 @@ class MainFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = MainFragment()
+        fun newInstance() = PictureOfTheDayFragment()
     }
 }

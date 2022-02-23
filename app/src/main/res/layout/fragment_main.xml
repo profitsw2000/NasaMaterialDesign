@@ -14,4 +14,18 @@
         android:contentDescription="@string/picture_of_the_day_stub"
         app:srcCompat="@drawable/ic_launcher_background"/>
 
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mainFragmentRecyclerView"
+        tools:visibility="invisible" />
+
 </FrameLayout>

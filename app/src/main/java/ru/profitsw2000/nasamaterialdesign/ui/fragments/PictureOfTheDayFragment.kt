@@ -1,6 +1,8 @@
 package ru.profitsw2000.nasamaterialdesign.ui.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,6 +35,14 @@ class PictureOfTheDayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val observer = Observer<PictureOfTheDayData> { renderData(it) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
+
+        //обработчик нажатия на иконку википедии в строке поиска
+        binding.inputLayout.setEndIconOnClickListener{
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+            })
+        }
+
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -45,7 +55,7 @@ class PictureOfTheDayFragment : Fragment() {
                     imageView.hide()
                 }
                 if (url.isNullOrEmpty()) {
-                    showDialog("Picture error", "Link is empty")
+                    showDialog(getString(R.string.title_url_empty_text), getString(R.string.message_url_empty_text))
                 } else {
                     with(binding) {
                         imageView.show()
@@ -97,11 +107,11 @@ class PictureOfTheDayFragment : Fragment() {
             AlertDialog.Builder(it)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("Reload"){ _, _ ->
+                .setPositiveButton(getString(R.string.dialog_button_reload_text)){ _, _ ->
                     val observer = Observer<PictureOfTheDayData> { renderData(it) }
                     viewModel.getData().observe(viewLifecycleOwner, observer)
                 }
-                .setNegativeButton("Cancel") {
+                .setNegativeButton(getString(R.string.dialog_button_cancel_text)) {
                         dialog, _ -> dialog.dismiss() }
                 .create()
                 .show()

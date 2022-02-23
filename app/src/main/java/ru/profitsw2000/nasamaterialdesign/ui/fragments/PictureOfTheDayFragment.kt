@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayViewModel
@@ -26,6 +28,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,9 @@ class PictureOfTheDayFragment : Fragment() {
             })
         }
 
+        //добавление Bottom Sheet во фрагмент
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -52,27 +58,33 @@ class PictureOfTheDayFragment : Fragment() {
                 val url = serverResponseData.url
                 with(binding) {
                     progressBar.hide()
-                    imageView.hide()
+                    included.bottomSheet.hide()
+                    mainGroup.hide()
                 }
                 if (url.isNullOrEmpty()) {
                     showDialog(getString(R.string.title_url_empty_text), getString(R.string.message_url_empty_text))
                 } else {
                     with(binding) {
-                        imageView.show()
+                        mainGroup.show()
+                        included.bottomSheet.show()
                         imageView.load(data.serverResponseData.hdurl)
+                        included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
+                        included.bottomSheetDescription.text = data.serverResponseData.explanation
                     }
                 }
             }
             is PictureOfTheDayData.Loading -> {
                 with(binding){
                     progressBar.show()
-                    imageView.hide()
+                    mainGroup.hide()
+                    included.bottomSheet.hide()
                 }
             }
             is PictureOfTheDayData.Error -> {
                 with(binding) {
                     progressBar.hide()
-                    imageView.hide()
+                    mainGroup.hide()
+                    included.bottomSheet.hide()
                 }
                 showDialog("Error", data.error.message!!)
             }

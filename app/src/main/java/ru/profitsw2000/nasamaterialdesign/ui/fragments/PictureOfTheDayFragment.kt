@@ -4,10 +4,9 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +17,7 @@ import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayViewModel
 import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMainBinding
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayData
+import ru.profitsw2000.nasamaterialdesign.ui.MainActivity
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -48,7 +48,10 @@ class PictureOfTheDayFragment : Fragment() {
 
         //добавление Bottom Sheet во фрагмент
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+
+        //добавление BottomBar
+        setBottomAppBar(view)
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -98,6 +101,29 @@ class PictureOfTheDayFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.app_bar_fav -> Toast.makeText(requireContext(),"app_bar_fav",Toast.LENGTH_SHORT).show()
+/*            R.id.app_bar_settings -> {
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container,ChipsFragment.newInstance()).addToBackStack("").commit()
+            }
+            android.R.id.home -> {
+                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"")
+            }*/
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBottomAppBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
+        setHasOptionsMenu(true)
     }
 
     override fun onDestroyView() {

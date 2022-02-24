@@ -8,9 +8,11 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import ru.profitsw2000.nasamaterialdesign.R
@@ -29,6 +31,7 @@ class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    var isMain:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +55,33 @@ class PictureOfTheDayFragment : Fragment() {
 
         //добавление BottomBar
         setBottomAppBar(view)
+
+        binding.fab.setOnClickListener{
+            if(isMain){
+                with(binding){
+                    bottomAppBar.navigationIcon = null
+                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+                    fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_back_fab))
+                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
+                }
+            }else{
+                with(binding) {
+                    bottomAppBar.navigationIcon = ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_hamburger_menu_bottom_bar
+                    )
+                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                    fab.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_plus_fab
+                        )
+                    )
+                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
+                }
+            }
+            isMain = !isMain
+        }
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -109,13 +139,13 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.app_bar_fav -> Toast.makeText(requireContext(),"app_bar_fav",Toast.LENGTH_SHORT).show()
+            R.id.app_bar_fav -> Toast.makeText(requireContext(),"Favourite",Toast.LENGTH_SHORT).show()
 /*            R.id.app_bar_settings -> {
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container,ChipsFragment.newInstance()).addToBackStack("").commit()
-            }
+            }*/
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"")
-            }*/
+            }
         }
         return super.onOptionsItemSelected(item)
     }

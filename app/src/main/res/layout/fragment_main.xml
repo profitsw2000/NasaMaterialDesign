@@ -76,6 +76,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:backgroundTint="@color/color_gray"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways"
         app:fabAlignmentMode="center"
         app:menu="@menu/menu_bottom_bar"
         app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar" />

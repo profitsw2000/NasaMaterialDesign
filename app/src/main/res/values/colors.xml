@@ -10,4 +10,6 @@
 
     <color name="color_gray">#66000000</color>
     <color name="color_green">#569859</color>
+    <color name="color_red">#FF0000</color>
+    <color name="color_blue">#0288D1</color>
 </resources>

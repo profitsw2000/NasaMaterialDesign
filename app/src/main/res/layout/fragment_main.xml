@@ -110,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/color_gray"
+        android:backgroundTint="@color/color_blue"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
         app:fabAlignmentMode="center"
@@ -122,7 +122,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/bottom_app_bar"
+        android:backgroundTint="@color/color_red"
         app:srcCompat="@drawable/ic_plus_fab"
-        app:tint="#FFFFFF" />
+        app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -14,12 +14,15 @@ import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayViewModel
 import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMainBinding
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayData
 import ru.profitsw2000.nasamaterialdesign.ui.MainActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -82,6 +85,13 @@ class PictureOfTheDayFragment : Fragment() {
             }
             isMain = !isMain
         }
+
+        //слушатель нажатия на чип
+        binding.chipGroup.setOnCheckedChangeListener { chipGroup, position ->
+            chipGroup.findViewById<Chip>(position)?.let {
+                setImageWithSelectedChip(it.text.toString())
+            }
+        }
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -140,9 +150,6 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.app_bar_fav -> Toast.makeText(requireContext(),"Favourite",Toast.LENGTH_SHORT).show()
-/*            R.id.app_bar_settings -> {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container,ChipsFragment.newInstance()).addToBackStack("").commit()
-            }*/
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"")
             }
@@ -154,6 +161,36 @@ class PictureOfTheDayFragment : Fragment() {
         val context = activity as MainActivity
         context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
         setHasOptionsMenu(true)
+    }
+
+    private fun setImageWithSelectedChip(dayOfWeek: String) {
+        val calendar = Calendar.getInstance()
+        val currentDay = calendar[Calendar.DATE]
+
+        when(dayOfWeek){
+            "Сегодня" -> {
+                val dateCurrentDay: String = SimpleDateFormat("yyyy-MM-$currentDay", Locale.getDefault()).format(Date())
+                val observer = Observer<PictureOfTheDayData> { renderData(it) }
+                viewModel.getData(dateCurrentDay).observe(viewLifecycleOwner, observer)
+            }
+
+            "Вчера" -> {
+                val yesterday = currentDay - 1
+                val dateYesterday: String = SimpleDateFormat("yyyy-MM-$yesterday", Locale.getDefault()).format(Date())
+                val observer = Observer<PictureOfTheDayData> { renderData(it) }
+                viewModel.getData(dateYesterday).observe(viewLifecycleOwner, observer)
+            }
+
+            "Позавчера" -> {
+                val beforeYesterday = currentDay - 2
+                val dateBeforeYesterday: String = SimpleDateFormat("yyyy-MM-$beforeYesterday", Locale.getDefault()).format(Date())
+                val observer = Observer<PictureOfTheDayData> { renderData(it) }
+                viewModel.getData(dateBeforeYesterday).observe(viewLifecycleOwner, observer)
+            }
+            else -> {
+
+            }
+        }
     }
 
     override fun onDestroyView() {

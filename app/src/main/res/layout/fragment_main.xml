@@ -11,6 +11,40 @@
         android:id="@+id/main"
         android:padding="10dp">
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/inputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/today"
+                android:text="Сегодня" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/yesterday"
+                android:text="Вчера" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/before_yesterday"
+                android:text="Позавчера" />
+
+
+        </com.google.android.material.chip.ChipGroup>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -65,7 +99,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/mainGroup"
             tools:visibility="visible"
-            app:constraint_referenced_ids="inputLayout, imageView" />
+            app:constraint_referenced_ids="inputLayout, imageView, chipGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

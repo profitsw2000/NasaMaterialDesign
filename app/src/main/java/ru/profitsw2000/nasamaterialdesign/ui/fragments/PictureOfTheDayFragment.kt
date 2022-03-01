@@ -164,26 +164,28 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun setImageWithSelectedChip(dayOfWeek: String) {
-        val calendar = Calendar.getInstance()
-        val currentDay = calendar[Calendar.DATE]
 
         when(dayOfWeek){
             "Сегодня" -> {
+                val calendar = Calendar.getInstance()
+                val currentDay = calendar[Calendar.DATE]
                 val dateCurrentDay: String = SimpleDateFormat("yyyy-MM-$currentDay", Locale.getDefault()).format(Date())
                 val observer = Observer<PictureOfTheDayData> { renderData(it) }
                 viewModel.getData(dateCurrentDay).observe(viewLifecycleOwner, observer)
             }
 
             "Вчера" -> {
-                val yesterday = currentDay - 1
-                val dateYesterday: String = SimpleDateFormat("yyyy-MM-$yesterday", Locale.getDefault()).format(Date())
+                val calendar = Calendar.getInstance()
+                calendar.add(Calendar.DATE,-1)
+                val dateYesterday: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
                 val observer = Observer<PictureOfTheDayData> { renderData(it) }
                 viewModel.getData(dateYesterday).observe(viewLifecycleOwner, observer)
             }
 
             "Позавчера" -> {
-                val beforeYesterday = currentDay - 2
-                val dateBeforeYesterday: String = SimpleDateFormat("yyyy-MM-$beforeYesterday", Locale.getDefault()).format(Date())
+                val calendar = Calendar.getInstance()
+                calendar.add(Calendar.DATE,-2)
+                val dateBeforeYesterday: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
                 val observer = Observer<PictureOfTheDayData> { renderData(it) }
                 viewModel.getData(dateBeforeYesterday).observe(viewLifecycleOwner, observer)
             }
@@ -242,3 +244,13 @@ class PictureOfTheDayFragment : Fragment() {
         fun newInstance() = PictureOfTheDayFragment()
     }
 }
+/*val behavior = BottomSheetBehavior.from(binding.includeBottomSheet.bottomSheetContainer)
+if (isMain) {
+    isMain = false
+    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    ...
+} else {
+    isMain = true
+    behavior.state = BottomSheetBehavior.STATE_HIDDEN
+    ...
+}*/

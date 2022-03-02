@@ -25,19 +25,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/today"
-                android:text="Сегодня" />
+                android:text="@string/today_chip" />
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/yesterday"
-                android:text="Вчера" />
+                android:text="@string/yesterday_chip" />
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/before_yesterday"
-                android:text="Позавчера" />
+                android:text="@string/before_yesterday_chip" />
 
         </com.google.android.material.chip.ChipGroup>
 

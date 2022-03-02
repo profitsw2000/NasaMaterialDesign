@@ -166,7 +166,7 @@ class PictureOfTheDayFragment : Fragment() {
     private fun setImageWithSelectedChip(dayOfWeek: String) {
 
         when(dayOfWeek){
-            "Сегодня" -> {
+            resources.getString(R.string.today_chip) -> {
                 val calendar = Calendar.getInstance()
                 val currentDay = calendar[Calendar.DATE]
                 val dateCurrentDay: String = SimpleDateFormat("yyyy-MM-$currentDay", Locale.getDefault()).format(Date())
@@ -174,7 +174,7 @@ class PictureOfTheDayFragment : Fragment() {
                 viewModel.getData(dateCurrentDay).observe(viewLifecycleOwner, observer)
             }
 
-            "Вчера" -> {
+            resources.getString(R.string.yesterday_chip) -> {
                 val calendar = Calendar.getInstance()
                 calendar.add(Calendar.DATE,-1)
                 val dateYesterday: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
@@ -182,7 +182,7 @@ class PictureOfTheDayFragment : Fragment() {
                 viewModel.getData(dateYesterday).observe(viewLifecycleOwner, observer)
             }
 
-            "Позавчера" -> {
+            resources.getString(R.string.before_yesterday_chip) -> {
                 val calendar = Calendar.getInstance()
                 calendar.add(Calendar.DATE,-2)
                 val dateBeforeYesterday: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)

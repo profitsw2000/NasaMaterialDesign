@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         return sharedPreferences.getInt(KEY_CURRENT_THEME, -1)
     }
 
-    private fun getRealStyle(currentTheme: Int): Int {
+    fun getRealStyle(currentTheme: Int): Int {
         return when (currentTheme) {
             CosmicTheme -> R.style.Cosmic
             MoonTheme -> R.style.Moon

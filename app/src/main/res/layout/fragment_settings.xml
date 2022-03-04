@@ -46,18 +46,24 @@
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:rippleColor="@color/white"
+            app:checkedIconTint="@color/white"
             android:id="@+id/cosmic"
             android:text="@string/cosmic_theme_chip" />
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:rippleColor="@color/white"
+            app:checkedIconTint="@color/white"
             android:id="@+id/moon"
             android:text="@string/moon_theme_chip" />
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:rippleColor="@color/white"
+            app:checkedIconTint="@color/white"
             android:id="@+id/mars"
             android:text="@string/mars_theme_chip" />
 

@@ -32,6 +32,7 @@
         <item name="colorOnSecondary">@color/secondaryLightColorCosmic</item>
         <!-- Шрифты. -->
         <item name="android:fontFamily">@font/lobster</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
     </style>
 
     <style name="Moon" parent="Theme.NasaMaterialDesign">
@@ -48,6 +49,7 @@
         <item name="colorOnSecondary">@color/secondaryLightColorMoon</item>
         <!-- Шрифты. -->
         <item name="android:fontFamily">@font/lobster</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
     </style>
 
     <style name="Mars" parent="Theme.NasaMaterialDesign">
@@ -64,6 +66,7 @@
         <item name="colorOnSecondary">@color/secondaryLightColorMars</item>
         <!-- Шрифты. -->
         <item name="android:fontFamily">@font/lobster</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
     </style>
 
 </resources>

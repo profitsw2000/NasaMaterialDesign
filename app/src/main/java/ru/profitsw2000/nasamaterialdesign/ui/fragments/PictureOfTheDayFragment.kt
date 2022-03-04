@@ -150,6 +150,7 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.app_bar_fav -> Toast.makeText(requireContext(),"Favourite",Toast.LENGTH_SHORT).show()
+            R.id.app_bar_settings -> openSettingsFragment()
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"")
             }
@@ -198,6 +199,16 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun openSettingsFragment() {
+        val manager = activity?.supportFragmentManager
+        manager?.let { manager ->
+                manager.beginTransaction()
+                .replace(R.id.container, SettingsFragment.newInstance())
+                .addToBackStack("")
+                .commitAllowingStateLoss()
+        }
     }
 
     private fun View.showSnackBar (

@@ -19,4 +19,9 @@
     <string name="today_chip">Сегодня</string>
     <string name="yesterday_chip">Вчера</string>
     <string name="before_yesterday_chip">Позавчера</string>
+    <string name="settings_title_label">Настройки</string>
+    <string name="cosmic_theme_chip">Космическая</string>
+    <string name="moon_theme_chip">Лунная</string>
+    <string name="mars_theme_chip">Марсианская</string>
+    <string name="theme_label">Тема:</string>
 </resources>

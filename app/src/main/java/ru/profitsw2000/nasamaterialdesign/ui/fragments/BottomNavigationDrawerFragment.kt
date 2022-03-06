@@ -15,7 +15,6 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     private val binding: BottomNavigationLayoutBinding
         get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

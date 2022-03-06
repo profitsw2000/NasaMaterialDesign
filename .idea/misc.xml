@@ -16,7 +16,7 @@
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/drawable/ic_wikipedia.xml" value="0.1365" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/font/.xml" value="0.165625" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/font/lobster.xml" value="0.165625" />
-        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.1375" />
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.264" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_main.xml" value="0.1375" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/bottom_navigation_layout.xml" value="0.1375" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.6" />
@@ -25,6 +25,7 @@
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/menu/menu_bottom_bar.xml" value="0.4" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/menu/menu_bottom_bar_other_screen.xml" value="0.3125" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.4" />
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/menu/menu_bottom_navigation_bar.xml" value="0.1375" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1365" />
       </map>
     </option>

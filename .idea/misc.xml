@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/drawable/chip_colors.xml" value="0.1435" />
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/drawable/chip_state.xml" value="0.1435" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1365" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/drawable/ic_back_fab.xml" value="0.1365" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/drawable/ic_hamburger_menu_bottom_bar.xml" value="0.1365" />

@@ -5,6 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.profitsw2000.nasamaterialdesign.representation.PODServerResponseData
 import ru.profitsw2000.nasamaterialdesign.representation.earth.EarthServerResponseData
+import ru.profitsw2000.nasamaterialdesign.representation.mars.MRFServerResponseData
 
 interface PictureOfTheDayAPI {
 
@@ -14,12 +15,16 @@ interface PictureOfTheDayAPI {
     @GET("planetary/apod")
     fun getPictureOfTheDayForDate(@Query("api_key") apiKey: String,@Query("date")  date:String): Call<PODServerResponseData>
 
-    //
-    @GET("planetary/earth/imagery")
-    fun getEarthImagery(@Query("lat") latitude: String,
-                        @Query("lon") longitude: String,
-                        @Query("date") date: String,
-                        @Query("dim") dimension: Float,
-                        @Query("api_key") apiKey: String): Call<EarthServerResponseData>
+    //Снимки земли
+    @GET("planetary/earth/assets")
+    fun getEarthImagery( @Query("lon") longitude: String,
+                         @Query("lat") latitude: String,
+                         @Query("date") date: String,
+                         @Query("dim") dimension: String,
+                         @Query("api_key") apiKey: String): Call<EarthServerResponseData>
 
+    //Снимки с марсохода Curiocity
+    @GET("mars-photos/api/v1/rovers/curiosity/photos")
+    fun getMarsRoverPhoto( @Query("earth_date") earth_date: String,
+                         @Query("api_key") apiKey: String): Call<MRFServerResponseData>
 }

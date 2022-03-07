@@ -32,7 +32,6 @@ class EarthFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance() = EarthFragment()
     }

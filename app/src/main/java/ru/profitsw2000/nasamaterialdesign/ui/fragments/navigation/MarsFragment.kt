@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import coil.api.load
-import ru.profitsw2000.nasamaterialdesign.databinding.FragmentEarthBinding
+import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMarsBinding
 
-class EarthFragment : Fragment() {
+class MarsFragment : Fragment() {
 
-    private var _binding: FragmentEarthBinding? = null
+    private var _binding: FragmentMarsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,14 +21,14 @@ class EarthFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentEarthBinding.inflate(inflater, container, false)
+        _binding = FragmentMarsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
-            imageView.load("https://api.nasa.gov/planetary/earth/imagery?lon=30.523333&lat=50.450001&date=2021-03-07&dim=0.25&api_key=Mg2woVFc6hKt5xjKlvUKn98AGStgNooNb2AGolcN")
+            imageView.load("https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01000/opgs/edr/fcam/FLB_486265257EDR_F0481570FHAZ00323M_.JPG")
         }
     }
 
@@ -39,6 +39,6 @@ class EarthFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = EarthFragment()
+        fun newInstance() = MarsFragment()
     }
 }

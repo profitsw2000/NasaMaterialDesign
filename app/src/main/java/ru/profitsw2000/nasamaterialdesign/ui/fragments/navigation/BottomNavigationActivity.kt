@@ -18,7 +18,7 @@ class BottomNavigationActivity : AppCompatActivity() {
 
     private fun initBottomNavigationView() {
 
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.bottom_view_earth -> {
                     navigationTo(EarthFragment.newInstance())

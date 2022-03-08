@@ -16,6 +16,7 @@
         <item name="chipStyle">@style/myChipStyle</item>
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
         <item name="floatingActionButtonStyle">@style/myFABStyle</item>
+        <item name="bottomNavigationStyle">@style/myBottomNavigationViewStyle</item>
     </style>
     
     <style name="Cosmic" parent="Theme.NasaMaterialDesign">

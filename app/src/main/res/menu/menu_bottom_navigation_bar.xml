@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/bottom_view_earth"
+        android:icon="@drawable/icons_earth"
         app:tooltipText = "Satellite imagery data taken at a given location by coordinates(default - Kiev)."
         android:title="Земля" />
 
     <item
         android:id="@+id/bottom_view_mars"
+        android:icon="@drawable/icon_mars"
         app:tooltipText = "Image data gathered by NASA's Curiosity rover on Mars at given data."
         android:title="Марс" />
 
     <item
         android:id="@+id/bottom_view_epic"
+        android:icon="@drawable/icon_epic_earth"
         app:tooltipText = "Daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument."
         android:title="EPIC" />
 </menu>

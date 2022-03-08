@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.databinding.BottomNavigationLayoutBinding
 import ru.profitsw2000.nasamaterialdesign.ui.fragments.navigation.BottomNavigationActivity
+import ru.profitsw2000.nasamaterialdesign.ui.fragments.viewpager.ViewPagerActivity
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     private var _binding: BottomNavigationLayoutBinding? = null
@@ -29,7 +30,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         binding.navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.navigation_one->{
-                    //startActivity(Intent(requireContext(),NavigationActivity::class.java))
+                    startActivity(Intent(requireContext(),ViewPagerActivity::class.java))
                 }
                 R.id.navigation_two->{
                     startActivity(Intent(requireContext(), BottomNavigationActivity::class.java))

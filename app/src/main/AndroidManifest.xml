@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Cosmic">
         <activity
+            android:name=".ui.fragments.viewpager.ViewPagerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.fragments.navigation.BottomNavigationActivity"
             android:exported="false" />
         <activity

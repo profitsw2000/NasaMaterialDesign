@@ -20,6 +20,5 @@
         <item name="itemTextColor">@color/bottom_navigation_view_color</item>
         <item name="itemIconTint">@color/bottom_navigation_view_color</item>
         <item name="itemRippleColor">@color/color_amber_500_light</item>
-        <item name="elevation">100dp</item>
     </style>
 </resources>

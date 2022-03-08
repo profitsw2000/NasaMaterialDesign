@@ -9,6 +9,8 @@ import coil.api.load
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.databinding.FragmentEPICBinding
 import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMarsBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EPICFragment : Fragment() {
 

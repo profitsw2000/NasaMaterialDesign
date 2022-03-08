@@ -48,7 +48,7 @@ class MarsFragment : Fragment() {
         }*/
     }
 
-    //Получение вчерашней даты.
+    //Получение даты 3-дневной давности.
     private fun getYesterdayDate(): String {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DATE,-3)

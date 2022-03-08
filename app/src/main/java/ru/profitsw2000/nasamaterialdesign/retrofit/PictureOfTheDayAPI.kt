@@ -6,6 +6,7 @@ import retrofit2.http.Query
 import ru.profitsw2000.nasamaterialdesign.representation.PODServerResponseData
 import ru.profitsw2000.nasamaterialdesign.representation.earth.EarthServerResponseData
 import ru.profitsw2000.nasamaterialdesign.representation.mars.MRFServerResponseData
+import ru.profitsw2000.nasamaterialdesign.ui.fragments.navigation.EPICFragment
 
 interface PictureOfTheDayAPI {
 
@@ -28,5 +29,4 @@ interface PictureOfTheDayAPI {
     fun getMarsRoverPhoto( @Query("earth_date") earth_date: String,
                          @Query("api_key") apiKey: String): Call<MRFServerResponseData>
 
-    //
 }

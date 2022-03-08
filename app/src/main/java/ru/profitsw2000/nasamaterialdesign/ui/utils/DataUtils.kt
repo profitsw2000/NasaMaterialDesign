@@ -20,7 +20,7 @@ fun convertESRDToPODSRD(earthServerResponseData: EarthServerResponseData) : PODS
 }
 
 //Получение из объекта класса MRFServerResponseData объект класса PODServerResponseData.
-fun convertESRDToPODSRD(mrfServerResponseData: MRFServerResponseData) : PODServerResponseData {
+fun convertMRFSRDToPODSRD(mrfServerResponseData: MRFServerResponseData) : PODServerResponseData {
     return PODServerResponseData("copyright",
         "date",
         "explanation",

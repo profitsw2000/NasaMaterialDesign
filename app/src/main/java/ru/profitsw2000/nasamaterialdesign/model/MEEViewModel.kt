@@ -10,6 +10,7 @@ import ru.profitsw2000.nasamaterialdesign.representation.earth.EarthServerRespon
 import ru.profitsw2000.nasamaterialdesign.representation.mars.MRFServerResponseData
 import ru.profitsw2000.nasamaterialdesign.retrofit.PODRetrofitImpl
 import ru.profitsw2000.nasamaterialdesign.utils.convertESRDToPODSRD
+import ru.profitsw2000.nasamaterialdesign.utils.convertMRFSRDToPODSRD
 
 class MEEViewModel (
     private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
@@ -27,6 +28,10 @@ class MEEViewModel (
     fun getMarsRoverData(date: String): LiveData<PictureOfTheDayData> {
         sendServerRequestForMarsRoverPhoto(date)
         return liveDataForViewToObserve
+    }
+
+    fun getEarthPolychromaticImagingCameraPhoto(){
+        sendServerRequestForEPICPhoto()
     }
 
     private fun sendServerRequestForEarthImagery(longitude: String, latitude: String, date: String, dim: String) {
@@ -77,7 +82,7 @@ class MEEViewModel (
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         liveDataForViewToObserve.value =
-                            PictureOfTheDayData.Success(convertESRDToPODSRD(response.body()!!))
+                            PictureOfTheDayData.Success(convertMRFSRDToPODSRD(response.body()!!))
                     } else {
                         val message = response.message()
                         if (message.isNullOrEmpty()) {
@@ -95,5 +100,39 @@ class MEEViewModel (
                 }
             })
         }
+    }
+
+    private fun sendServerRequestForEPICPhoto() {
+/*        liveDataForViewToObserve.value = PictureOfTheDayData.Loading(null)
+        val apiKey = "Mg2woVFc6hKt5xjKlvUKn98AGStgNooNb2AGolcN"
+        if (apiKey.isBlank()) {
+            PictureOfTheDayData.Error(Throwable("You need API key"))
+        } else {
+            retrofitImpl.getRetrofitImpl().getMarsRoverPhoto(date, apiKey).enqueue(object :
+                Callback<MRFServerResponseData> {
+                override fun onResponse(
+                    call: Call<MRFServerResponseData>,
+                    response: Response<MRFServerResponseData>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        liveDataForViewToObserve.value =
+                            PictureOfTheDayData.Success(convertMRFSRDToPODSRD(response.body()!!))
+                    } else {
+                        val message = response.message()
+                        if (message.isNullOrEmpty()) {
+                            liveDataForViewToObserve.value =
+                                PictureOfTheDayData.Error(Throwable("Unidentified error"))
+                        } else {
+                            liveDataForViewToObserve.value =
+                                PictureOfTheDayData.Error(Throwable(message))
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<MRFServerResponseData>, t: Throwable) {
+                    liveDataForViewToObserve.value = PictureOfTheDayData.Error(t)
+                }
+            })
+        }*/
     }
 }

@@ -100,7 +100,6 @@ class EarthFragment : Fragment() {
         _binding = null
     }
 
-
     private fun showDialog(title: String, message: String) {
         activity?.let {
             AlertDialog.Builder(it)

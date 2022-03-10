@@ -49,10 +49,6 @@ class EarthFragment : Fragment() {
         //Считывание данных 3-месячной давности, так как более свежих данных может и не быть.
         val observer = Observer<PictureOfTheDayData> { renderData(it) }
         viewModel.getEarthImageryData(longitude, latitude, getThreeMonthBackDate(), dimension.toString()).observe(viewLifecycleOwner, observer)
-
-/*        with(binding){
-            imageView.load("https://api.nasa.gov/planetary/earth/imagery?lon=30.523333&lat=50.450001&date=2021-03-07&dim=0.25&api_key=Mg2woVFc6hKt5xjKlvUKn98AGStgNooNb2AGolcN")
-        }*/
     }
 
     //Получение даты 3-месячной давности.

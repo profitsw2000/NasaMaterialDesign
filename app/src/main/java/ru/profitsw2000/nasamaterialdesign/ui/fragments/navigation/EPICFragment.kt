@@ -59,26 +59,29 @@ class EPICFragment : Fragment() {
                 val url = serverResponseData.url
                 with(binding) {
                     progressBar.hide()
-                    imageView.show()
+                    epicGroup.show()
                 }
                 if (url.isNullOrEmpty()) {
                     showDialog(getString(R.string.title_url_empty_text), getString(R.string.message_url_empty_text))
                 } else {
                     with(binding) {
                         imageView.load(data.serverResponseData.hdurl)
+                        coordinateX.setText("X: ${data.serverResponseData.copyright}")
+                        coordinateY.setText("Y: ${data.serverResponseData.date}")
+                        coordinateZ.setText("Z: ${data.serverResponseData.explanation}")
                     }
                 }
             }
             is PictureOfTheDayData.Loading -> {
                 with(binding){
                     progressBar.show()
-                    imageView.hide()
+                    epicGroup.hide()
                 }
             }
             is PictureOfTheDayData.Error -> {
                 with(binding) {
                     progressBar.hide()
-                    imageView.hide()
+                    epicGroup.hide()
                 }
                 showDialog("Error", data.error.message!!)
             }

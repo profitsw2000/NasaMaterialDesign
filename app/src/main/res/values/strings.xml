@@ -24,4 +24,7 @@
     <string name="moon_theme_chip">Лунная</string>
     <string name="mars_theme_chip">Марсианская</string>
     <string name="theme_label">Тема:</string>
+    <string name="epic_title_text">EPIC</string>
+    <string name="epic_coordinates">Coordinates:</string>
+    <string name="description_title_text">Description</string>
 </resources>

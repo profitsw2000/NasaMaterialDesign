@@ -46,6 +46,16 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textColor="@color/color_green"
+        android:text="@string/mars_rover_photos"
+        android:textSize="24sp"
+        app:layout_behavior=".ui.fragments.behavior.TitleBehavior" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"

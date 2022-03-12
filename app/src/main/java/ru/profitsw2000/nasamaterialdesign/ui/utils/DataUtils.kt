@@ -75,7 +75,6 @@ fun convertEPICSRDToPODSRD(epicServerResponseData: EPICServerResponseData, date:
         }
     }
 
-
     return PODServerResponseData(
         xCoord.toString(),
         yCoord.toString(),

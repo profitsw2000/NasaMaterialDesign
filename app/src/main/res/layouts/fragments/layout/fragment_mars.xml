@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:toolbarId="@+id/toolbar">
 
             <ru.profitsw2000.nasamaterialdesign.ui.utils.EquilateralImageView
@@ -42,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
+            android:layout_margin="10dp"
             android:text="@string/mars_fragment_description_text" />
 
     </androidx.core.widget.NestedScrollView>
@@ -50,7 +51,8 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
+        android:background="@color/color_purple_400_light"
+        android:gravity="center_horizontal"
         android:textColor="@color/color_green"
         android:text="@string/mars_rover_photos"
         android:textSize="24sp"

@@ -48,7 +48,7 @@ class EPICFragment : Fragment() {
     //Получение даты 3-дневной давности.
     private fun getYesterdayDate(): String {
         val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DATE,-3)
+        calendar.add(Calendar.DATE,-4)
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
     }
 

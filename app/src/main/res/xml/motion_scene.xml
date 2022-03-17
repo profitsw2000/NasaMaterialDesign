@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene xmlns:motion="http://schemas.android.com/apk/res-auto">
+<MotionScene xmlns:motion="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ConstraintSet
+        android:id="@+id/start">
+
+    </ConstraintSet>
+
+    <ConstraintSet
+        android:id="@+id/end">
+
+        <Constraint
+            android:id="@+id/wiki_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="8dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toTopOf="@id/imageView"
+            motion:layout_constraintStart_toStartOf="parent"/>
+
+        <Constraint
+            android:id="@+id/inputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_wiki"
+            motion:counterEnabled="true"
+            motion:counterMaxLength="20"
+            motion:startIconDrawable="@drawable/ic_search"
+            motion:endIconMode="custom"
+            motion:helperText="@string/wiki_helper_text"
+            android:layout_marginBottom="8dp"
+            motion:layout_constraintBottom_toTopOf="@+id/imageView"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:startIconContentDescription="@string/imageDesc"
+            motion:endIconDrawable="@drawable/ic_wikipedia"/>
+
+    </ConstraintSet>
+
     <Transition
-        motion:constraintSetEnd="@layout/fragment_main"
-        motion:constraintSetStart="@layout/fragment_main_start"
-        motion:duration="1000">
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@+id/start">
 
         <OnSwipe
-            motion:touchAnchorId="@id/inputEditText"
+            motion:touchAnchorId="@+id/wiki_button"
+            motion:dragDirection="dragLeft"
             motion:touchAnchorSide="left"
-            motion:dragDirection="dragRight"/>
+            />
 
     </Transition>
+
 </MotionScene>

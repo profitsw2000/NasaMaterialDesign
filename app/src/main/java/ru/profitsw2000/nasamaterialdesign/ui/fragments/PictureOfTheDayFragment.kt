@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayViewModel
 import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMainBinding
+import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMainStartBinding
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayData
 import ru.profitsw2000.nasamaterialdesign.ui.MainActivity
 import java.text.SimpleDateFormat
@@ -31,7 +32,7 @@ class PictureOfTheDayFragment : Fragment() {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
     }
 
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentMainStartBinding? = null
     private val binding get() = _binding!!
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     var isMain:Boolean = true
@@ -140,7 +141,7 @@ class PictureOfTheDayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMainStartBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

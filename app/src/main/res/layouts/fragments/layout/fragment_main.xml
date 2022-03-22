@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main"
@@ -45,17 +45,6 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/wiki_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_marginTop="8dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_wikipedia" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -69,7 +58,8 @@
             app:endIconMode="custom"
             app:helperText="@string/wiki_helper_text"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
-            app:layout_constraintStart_toEndOf="@id/wiki_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:startIconContentDescription="@string/imageDesc"
             app:startIconDrawable="@drawable/ic_wikipedia">
 
@@ -81,14 +71,13 @@
 
         <ru.profitsw2000.nasamaterialdesign.ui.utils.EquilateralImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/picture_of_the_day_stub"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/ic_no_foto_vector"/>
 
 
@@ -110,9 +99,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/mainGroup"
             tools:visibility="visible"
-            app:constraint_referenced_ids="inputLayout, imageView, chipGroup, wiki_button" />
+            app:constraint_referenced_ids="inputLayout, imageView, chipGroup" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include android:id="@+id/included" layout="@layout/bottom_sheet_layout" />
 

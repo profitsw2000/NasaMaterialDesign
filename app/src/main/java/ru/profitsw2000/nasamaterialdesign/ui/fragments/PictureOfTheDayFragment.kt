@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import coil.api.load
@@ -39,6 +41,7 @@ class PictureOfTheDayFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     var isMain:Boolean = true
+    private var flag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +98,19 @@ class PictureOfTheDayFragment : Fragment() {
             chipGroup.findViewById<Chip>(position)?.let {
                 setImageWithSelectedChip(it.text.toString())
             }
+        }
+
+        //слушатель нажатия на картинку
+        binding.imageView.setOnClickListener {
+            val changeBounds = ChangeImageTransform()
+            changeBounds.duration = 3000
+            TransitionManager.beginDelayedTransition(binding.main,changeBounds)
+            flag = !flag
+            val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
+            params.height = if (flag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            params.width = if (flag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            binding.imageView.layoutParams = params
+            binding.imageView.scaleType = if(flag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
         }
     }
 

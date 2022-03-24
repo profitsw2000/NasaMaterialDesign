@@ -1,5 +1,8 @@
 package ru.profitsw2000.nasamaterialdesign.ui.fragments
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -42,6 +45,7 @@ class PictureOfTheDayFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     var isMain:Boolean = true
     private var flag = false
+    private val duration = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,27 +72,11 @@ class PictureOfTheDayFragment : Fragment() {
 
         binding.fab.setOnClickListener{
             if(isMain){
-                with(binding){
-                    bottomAppBar.navigationIcon = null
-                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                    fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_back_fab))
-                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
-                }
+                binding.mainGroup.hide()
+                expandFAB()
             }else{
-                with(binding) {
-                    bottomAppBar.navigationIcon = ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_hamburger_menu_bottom_bar
-                    )
-                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                    fab.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_plus_fab
-                        )
-                    )
-                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
-                }
+                collapseFAB()
+                binding.mainGroup.show()
             }
             isMain = !isMain
         }
@@ -231,6 +219,64 @@ class PictureOfTheDayFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun expandFAB() {
+        ObjectAnimator.ofFloat( binding.fab,View.ROTATION,0f,405f).setDuration(duration).start()
+        ObjectAnimator.ofFloat( binding.optionOneContainer,View.TRANSLATION_Y,-50f,-260f).setDuration(duration).start()
+        ObjectAnimator.ofFloat( binding.optionTwoContainer,View.TRANSLATION_Y,-20f,-130f).setDuration(duration).start()
+
+        binding.optionOneContainer.animate()
+            .alpha(1f)
+            .setDuration(duration/2)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.optionOneContainer.isClickable = true
+                }
+            })
+        binding.optionTwoContainer.animate()
+            .alpha(1f)
+            .setDuration(duration/2)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.optionTwoContainer.isClickable = true
+                }
+            })
+
+        binding.transparentBackground.animate()
+            .alpha(0.75f)
+            .setDuration(duration)
+
+    }
+
+    private fun collapseFAB() {
+        ObjectAnimator.ofFloat( binding.fab,View.ROTATION,405f,0f).setDuration(duration).start()
+        ObjectAnimator.ofFloat( binding.optionOneContainer,View.TRANSLATION_Y,-260f,-50f).setDuration(duration).start()
+        ObjectAnimator.ofFloat( binding.optionTwoContainer,View.TRANSLATION_Y,-130f,-20f).setDuration(duration).start()
+
+        binding.optionOneContainer.animate()
+            .alpha(0f)
+            .setDuration(duration/2)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.optionOneContainer.isClickable = false
+                }
+            })
+        binding.optionTwoContainer.animate()
+            .alpha(0f)
+            .setDuration(duration/2)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.optionTwoContainer.isClickable = false
+                }
+            })
+        binding.transparentBackground.animate()
+            .alpha(0f)
+            .setDuration(duration)
     }
 
     override fun onDestroyView() {

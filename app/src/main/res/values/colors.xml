@@ -12,6 +12,10 @@
     <color name="color_green">#569859</color>
     <color name="color_red">#FF0000</color>
     <color name="color_blue">#0288D1</color>
+    <color name="color_red_50">#ffebee</color>
+    <color name="color_purple_400_light">#df78ef</color>
+    <color name="color_amber_500_light">#fff350</color>
+    <color name="color_brown_600">#6d4c41</color>
 
    <!-- Cosmic Theme-->
     <color name="primaryColorCosmic">#4F5B62</color>

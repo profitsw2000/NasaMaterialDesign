@@ -14,8 +14,8 @@
     <string name="settings">settings</string>
     <string name="search">Search</string>
     <string name="imageDesc">Картинка</string>
-    <string name="to_the_screen_1_text">На экран 1</string>
-    <string name="to_the_screen_2_text">На экран 2</string>
+    <string name="to_the_screen_1_text">На экран c ViewPager</string>
+    <string name="to_the_screen_2_text">На экран c BottomNavigationView</string>
     <string name="today_chip">Сегодня</string>
     <string name="yesterday_chip">Вчера</string>
     <string name="before_yesterday_chip">Позавчера</string>

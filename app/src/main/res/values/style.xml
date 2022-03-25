@@ -14,4 +14,11 @@
     <style name="myFABStyle" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">@color/color_red</item>
     </style>
+
+    <style name="myBottomNavigationViewStyle">
+        <item name="backgroundTint">@color/color_purple_400_light</item>
+        <item name="itemTextColor">@color/bottom_navigation_view_color</item>
+        <item name="itemIconTint">@color/bottom_navigation_view_color</item>
+        <item name="itemRippleColor">@color/color_amber_500_light</item>
+    </style>
 </resources>

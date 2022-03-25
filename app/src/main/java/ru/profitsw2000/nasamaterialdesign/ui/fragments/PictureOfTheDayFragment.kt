@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
@@ -22,7 +21,6 @@ import androidx.transition.ChangeImageTransform
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import coil.api.load
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +29,7 @@ import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayViewModel
 import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMainBinding
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayData
 import ru.profitsw2000.nasamaterialdesign.ui.MainActivity
+import ru.profitsw2000.nasamaterialdesign.ui.utils.DoubleClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,7 +45,9 @@ class PictureOfTheDayFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     var isMain:Boolean = true
     private var flag = false
+    private var doubleClick = false
     private val duration = 1000L
+    private var zoomFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,17 +91,28 @@ class PictureOfTheDayFragment : Fragment() {
         }
 
         //слушатель нажатия на картинку
-        binding.imageView.setOnClickListener {
-            flag = !flag
-            val constraintSet= ConstraintSet()
-            constraintSet.clone(binding.main)
-            if (flag) {
-                showPictureTitle(constraintSet)
-            } else {
-                hidePictureTitle(constraintSet)
+        binding.imageView.setOnClickListener(object: DoubleClickListener(){
+            override fun onDoubleClick() {
+                doubleClick = true
+                zoomFlag = !zoomFlag
+                zoomImage()
             }
-            //zoomImage()
-        }
+
+            override fun onSingleClick() {
+                if (!doubleClick) {
+                    flag = !flag
+                    val constraintSet= ConstraintSet()
+                    constraintSet.clone(binding.main)
+                    if (flag) {
+                        showPictureTitle(constraintSet)
+                    } else {
+                        hidePictureTitle(constraintSet)
+                    }
+                }
+                doubleClick = false
+            }
+
+        })
 
         //слушатель нажатия на текст "Показать фото дня"
         binding.showPictureOfTheDayText.setOnClickListener {
@@ -114,12 +126,12 @@ class PictureOfTheDayFragment : Fragment() {
         TransitionManager.beginDelayedTransition(binding.main, changeBounds)
         val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
         params.height =
-            if (flag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            if (zoomFlag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
         params.width =
-            if (flag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            if (zoomFlag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
         binding.imageView.layoutParams = params
         binding.imageView.scaleType =
-            if (flag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+            if (zoomFlag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
     }
 
     private fun showPictureTitle(constraintSet: ConstraintSet) {

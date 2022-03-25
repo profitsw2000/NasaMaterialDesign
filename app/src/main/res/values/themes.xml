@@ -12,5 +12,61 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <!--Стили для отдельных компонентов-->
+        <item name="chipStyle">@style/myChipStyle</item>
+        <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
+        <item name="floatingActionButtonStyle">@style/myFABStyle</item>
     </style>
+    
+    <style name="Cosmic" parent="Theme.NasaMaterialDesign">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColorCosmic</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColorCosmic</item>
+        <item name="colorOnPrimary">@color/primaryLightColorCosmic</item>
+        <item name="colorOnSurface">#FFF9C4</item>
+        <item name="colorSurface">@color/primaryLightColorCosmic</item>
+        <item name="android:colorBackground">@color/primaryColorCosmic</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryColorCosmic</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColorCosmic</item>
+        <item name="colorOnSecondary">@color/secondaryLightColorCosmic</item>
+        <!-- Шрифты. -->
+        <item name="android:fontFamily">@font/lobster</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
+    </style>
+
+    <style name="Moon" parent="Theme.NasaMaterialDesign">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColorMoon</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColorMoon</item>
+        <item name="colorOnPrimary">@color/primaryLightColorMoon</item>
+        <item name="colorOnSurface">@color/primaryDarkColorMoon</item>
+        <item name="colorSurface">@color/primaryLightColorMoon</item>
+        <item name="android:colorBackground">@color/primaryColorMoon</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryColorMoon</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColorMoon</item>
+        <item name="colorOnSecondary">@color/secondaryLightColorMoon</item>
+        <!-- Шрифты. -->
+        <item name="android:fontFamily">@font/lobster</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
+    </style>
+
+    <style name="Mars" parent="Theme.NasaMaterialDesign">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColorMars</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColorMars</item>
+        <item name="colorOnPrimary">@color/primaryLightColorMars</item>
+        <item name="colorOnSurface">@color/primaryDarkColorMars</item>
+        <item name="colorSurface">@color/primaryLightColorMars</item>
+        <item name="android:colorBackground">@color/primaryColorMars</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryColorMars</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColorMars</item>
+        <item name="colorOnSecondary">@color/secondaryLightColorMars</item>
+        <!-- Шрифты. -->
+        <item name="android:fontFamily">@font/lobster</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
+    </style>
+
 </resources>

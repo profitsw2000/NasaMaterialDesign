@@ -3,10 +3,10 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/navigation_one"
-            android:title="На экран 1" />
+            android:title="@string/to_the_screen_1_text" />
         <item
             android:id="@+id/navigation_two"
-            android:title="На экран 2" />
+            android:title="@string/to_the_screen_2_text" />
     </group>
 
 </menu>

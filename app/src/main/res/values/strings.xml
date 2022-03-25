@@ -14,4 +14,14 @@
     <string name="settings">settings</string>
     <string name="search">Search</string>
     <string name="imageDesc">Картинка</string>
+    <string name="to_the_screen_1_text">На экран 1</string>
+    <string name="to_the_screen_2_text">На экран 2</string>
+    <string name="today_chip">Сегодня</string>
+    <string name="yesterday_chip">Вчера</string>
+    <string name="before_yesterday_chip">Позавчера</string>
+    <string name="settings_title_label">Настройки</string>
+    <string name="cosmic_theme_chip">Космическая</string>
+    <string name="moon_theme_chip">Лунная</string>
+    <string name="mars_theme_chip">Марсианская</string>
+    <string name="theme_label">Тема:</string>
 </resources>

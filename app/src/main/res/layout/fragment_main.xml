@@ -22,26 +22,24 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/today"
-                android:text="Сегодня" />
+                android:fontFamily="@font/lobster"
+                android:text="@string/today_chip" />
 
             <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lobster"
                 android:id="@+id/yesterday"
-                android:text="Вчера" />
+                android:text="@string/yesterday_chip" />
 
             <com.google.android.material.chip.Chip
-                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/before_yesterday"
-                android:text="Позавчера" />
-
+                android:text="@string/before_yesterday_chip" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -110,7 +108,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/color_blue"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
         app:fabAlignmentMode="center"
@@ -122,8 +119,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/bottom_app_bar"
-        android:backgroundTint="@color/color_red"
-        app:srcCompat="@drawable/ic_plus_fab"
-        app:tint="@color/white" />
+        app:srcCompat="@drawable/ic_plus_fab" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

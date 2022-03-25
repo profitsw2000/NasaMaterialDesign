@@ -109,8 +109,8 @@ class PictureOfTheDayFragment : Fragment() {
                 } else {
                     with(binding) {
                         mainGroup.show()
+                        progressBar.hide()
                         included.bottomSheet.show()
-                        //imageView.load("https://api.nasa.gov/EPIC/archive/natural/2019/05/30/png/epic_1b_20190530011359.png?api_key=Mg2woVFc6hKt5xjKlvUKn98AGStgNooNb2AGolcN")
                         imageView.load(data.serverResponseData.hdurl)
                         included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
                         included.bottomSheetDescription.text = data.serverResponseData.explanation

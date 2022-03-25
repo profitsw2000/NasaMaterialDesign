@@ -309,7 +309,7 @@ class PictureOfTheDayFragment : Fragment() {
             })
 
         binding.transparentBackground.animate()
-            .alpha(0.75f)
+            .alpha(0.5f)
             .setDuration(duration)
 
     }

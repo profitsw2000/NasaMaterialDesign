@@ -53,20 +53,33 @@
             android:hint="@string/search_wiki"
             app:counterEnabled="true"
             app:counterMaxLength="20"
-            app:endIconDrawable="@drawable/ic_search"
+            app:startIconDrawable="@drawable/ic_search"
             app:endIconMode="custom"
             app:helperText="@string/wiki_helper_text"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:startIconContentDescription="@string/imageDesc"
-            app:startIconDrawable="@drawable/ic_wikipedia">
+            app:endIconDrawable="@drawable/ic_wikipedia">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/show_picture_of_the_day_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/show_picture_text"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ru.profitsw2000.nasamaterialdesign.ui.utils.EquilateralImageView
             android:id="@+id/imageView"
@@ -80,6 +93,35 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/ic_no_foto_vector"/>
 
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:background="#B71C1C"
+            android:paddingStart="24dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="Title"
+            android:textColor="#FFFF"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageView" />
+
+        <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#d3d3d3"
+        android:paddingStart="16dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="3dp"
+        android:text="Date"
+        android:textSize="10sp"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintRight_toRightOf="@+id/title" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -99,7 +141,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/mainGroup"
             tools:visibility="visible"
-            app:constraint_referenced_ids="inputLayout, imageView, chipGroup" />
+            app:constraint_referenced_ids="inputLayout, imageView, chipGroup, title, date" />
 
         <FrameLayout
             android:id="@+id/transparent_background"

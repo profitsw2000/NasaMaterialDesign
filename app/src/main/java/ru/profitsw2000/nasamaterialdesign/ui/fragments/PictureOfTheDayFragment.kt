@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -90,17 +91,63 @@ class PictureOfTheDayFragment : Fragment() {
 
         //слушатель нажатия на картинку
         binding.imageView.setOnClickListener {
-            val changeBounds = ChangeImageTransform()
-            changeBounds.duration = 3000
-            TransitionManager.beginDelayedTransition(binding.main,changeBounds)
             flag = !flag
-            val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
-            params.height = if (flag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
-            params.width = if (flag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
-            binding.imageView.layoutParams = params
-            binding.imageView.scaleType = if(flag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+            val constraintSet= ConstraintSet()
+            constraintSet.clone(binding.main)
+            if (flag) {
+                showPictureTitle(constraintSet)
+            } else {
+                hidePictureTitle(constraintSet)
+            }
+            //zoomImage()
+        }
+
+        //слушатель нажатия на текст "Показать фото дня"
+        binding.showPictureOfTheDayText.setOnClickListener {
+            imageAnimation()
         }
     }
+
+    private fun zoomImage() {
+        val changeBounds = ChangeImageTransform()
+        changeBounds.duration = 3000
+        TransitionManager.beginDelayedTransition(binding.main, changeBounds)
+        val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
+        params.height =
+            if (flag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+        params.width =
+            if (flag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.imageView.layoutParams = params
+        binding.imageView.scaleType =
+            if (flag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+    }
+
+    private fun showPictureTitle(constraintSet: ConstraintSet) {
+        constraintSet.clone(binding.main)
+        val changeBounds = ChangeBounds()
+        changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+        changeBounds.duration= 1000L
+        TransitionManager.beginDelayedTransition(binding.main,changeBounds)
+
+        constraintSet.connect(R.id.title,ConstraintSet.END, R.id.main,ConstraintSet.END)
+        constraintSet.connect(R.id.title,ConstraintSet.START, R.id.main,ConstraintSet.START)
+        constraintSet.setHorizontalBias(R.id.title,0.8f)
+        constraintSet.constrainPercentWidth(R.id.title,0.5f)
+        constraintSet.applyTo(binding.main)
+    }
+
+    private fun hidePictureTitle(constraintSet: ConstraintSet) {
+        constraintSet.clone(binding.main)
+        val changeBounds = ChangeBounds()
+        changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+        changeBounds.duration= 1000L
+        TransitionManager.beginDelayedTransition(binding.main,changeBounds)
+
+        constraintSet.connect(R.id.title,ConstraintSet.END, R.id.main,ConstraintSet.START)
+        constraintSet.clear(R.id.title,ConstraintSet.START)
+        constraintSet.applyTo(binding.main)
+    }
+
 
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
@@ -120,7 +167,8 @@ class PictureOfTheDayFragment : Fragment() {
                         progressBar.hide()
                         included.bottomSheet.show()
                         imageView.load(data.serverResponseData.hdurl)
-                        imageAnimation()
+                        title.setText(data.serverResponseData.title)
+                        date.setText(data.serverResponseData.date)
                         included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
                         included.bottomSheetDescription.text = data.serverResponseData.explanation
                     }
@@ -150,7 +198,10 @@ class PictureOfTheDayFragment : Fragment() {
         val constraintSet = ConstraintSet()
         constraintSet.clone(constraintLayout)
         constraintSet.clear(R.id.imageView, ConstraintSet.START)
+        constraintSet.clear(R.id.show_picture_of_the_day_text, ConstraintSet.START)
         constraintSet.connect(R.id.imageView, ConstraintSet.START, R.id.main, ConstraintSet.START, 0)
+        constraintSet.connect(R.id.imageView, ConstraintSet.END, R.id.main, ConstraintSet.END, 0)
+        constraintSet.connect(R.id.show_picture_of_the_day_text, ConstraintSet.END, R.id.main, ConstraintSet.START, 0)
         val transition = TransitionSet()
         val changeBounds = ChangeBounds()
         changeBounds.duration = 2000
@@ -338,13 +389,3 @@ class PictureOfTheDayFragment : Fragment() {
         fun newInstance() = PictureOfTheDayFragment()
     }
 }
-/*val behavior = BottomSheetBehavior.from(binding.includeBottomSheet.bottomSheetContainer)
-if (isMain) {
-    isMain = false
-    behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    ...
-} else {
-    isMain = true
-    behavior.state = BottomSheetBehavior.STATE_HIDDEN
-    ...
-}*/

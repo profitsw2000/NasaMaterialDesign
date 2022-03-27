@@ -43,9 +43,6 @@ class MarsFragment : Fragment() {
 
         val observer = Observer<PictureOfTheDayData> { renderData(it) }
         viewModel.getMarsRoverData(getYesterdayDate()).observe(viewLifecycleOwner, observer)
-/*        with(binding){
-            imageView.load("https://mars.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01000/opgs/edr/fcam/FLB_486265257EDR_F0481570FHAZ00323M_.JPG")
-        }*/
     }
 
     //Получение даты 3-дневной давности.

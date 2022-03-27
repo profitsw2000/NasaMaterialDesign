@@ -21,15 +21,7 @@ class RecyclerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val data = arrayListOf(
-            ToDoData(getString(R.string.rv_item_cleaning_text), 15, type = TYPE_CLEANING),
-            ToDoData(getString(R.string.rv_item_cleaning_text), 11, type = TYPE_CLEANING),
-            ToDoData(getString(R.string.rv_item_cleaning_text), 22, type = TYPE_CLEANING),
-            ToDoData(getString(R.string.rv_item_learning_text), description = getString(R.string.rv_activity_description_text), type = TYPE_LEARNING),
-            ToDoData(getString(R.string.rv_item_learning_text), description = getString(R.string.rv_activity_description_text), type = TYPE_LEARNING),
-            ToDoData(getString(R.string.rv_item_learning_text), description = getString(R.string.rv_activity_description_text), type = TYPE_LEARNING),
-            ToDoData(getString(R.string.rv_item_rest_text), type = TYPE_REST),
-            ToDoData(getString(R.string.rv_item_rest_text), type = TYPE_REST),
-            ToDoData(getString(R.string.rv_item_rest_text), type = TYPE_REST)
+            ToDoData(getString(R.string.rv_item_cleaning_text), 15, type = TYPE_CLEANING)
         )
         data.shuffle()
         data.add(0, ToDoData(getString(R.string.header), type = TYPE_HEADER))
@@ -40,6 +32,7 @@ class RecyclerActivity : AppCompatActivity() {
         })
         adapter.setData(data)
         binding.recyclerView.adapter = adapter
+        binding.recyclerActivityFAB.setOnClickListener { adapter.appendItem(this@RecyclerActivity) }
     }
 
     fun getCurrentTheme(): Int {

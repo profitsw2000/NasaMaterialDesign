@@ -1,5 +1,6 @@
 package ru.profitsw2000.nasamaterialdesign.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,18 +11,18 @@ import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerItemCleani
 import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerItemHeaderBinding
 import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerItemLearningBinding
 import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerItemRestBinding
-import ru.profitsw2000.nasamaterialdesign.representation.TYPE_CLEANING
-import ru.profitsw2000.nasamaterialdesign.representation.TYPE_HEADER
-import ru.profitsw2000.nasamaterialdesign.representation.TYPE_LEARNING
-import ru.profitsw2000.nasamaterialdesign.representation.ToDoData
+import ru.profitsw2000.nasamaterialdesign.representation.*
 import ru.profitsw2000.nasamaterialdesign.ui.recyclerview.OnItemClickListener
+import kotlin.random.Random
 
 class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
     RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>() {
-    lateinit var listData: List<ToDoData>
-    fun setData(listData:List<ToDoData>){
+    private lateinit var listData: MutableList<ToDoData>
+
+    fun setData(listData:MutableList<ToDoData>){
         this.listData = listData
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when(viewType){
             TYPE_CLEANING -> {
@@ -52,6 +53,22 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
     }
 
     override fun getItemCount()=listData.size
+
+    fun appendItem(context: Context) {
+        listData.add(generateData(context))
+        notifyItemInserted(listData.size-1)
+    }
+
+    fun generateData(context: Context): ToDoData {
+        val random = (0..23).random()
+        var ouput: ToDoData?
+        when(random/8){
+            0 -> return ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING)
+            1 -> return ToDoData(context.getString(R.string.rv_item_learning_text), description = context.getString(R.string.rv_activity_description_text), type = TYPE_LEARNING)
+            2 -> return ToDoData(context.getString(R.string.rv_item_rest_text), type = TYPE_REST)
+        }
+        return ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING)
+    }
 
     abstract class BaseViewHolder(view:View):RecyclerView.ViewHolder(view){
         abstract fun bind(data: ToDoData)

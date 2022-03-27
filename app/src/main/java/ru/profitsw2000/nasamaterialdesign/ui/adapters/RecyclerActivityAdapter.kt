@@ -17,9 +17,9 @@ import kotlin.random.Random
 
 class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
     RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>() {
-    private lateinit var listData: MutableList<ToDoData>
+    private lateinit var listData: MutableList<Pair<ToDoData,Boolean>>
 
-    fun setData(listData:MutableList<ToDoData>){
+    fun setData(listData:MutableList<Pair<ToDoData,Boolean>>){
         this.listData = listData
     }
 
@@ -49,7 +49,7 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
     }
 
     override fun getItemViewType(position: Int): Int {
-        return listData[position].type
+        return listData[position].first.type
     }
 
     override fun getItemCount()=listData.size
@@ -59,33 +59,33 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
         notifyItemInserted(listData.size-1)
     }
 
-    fun generateData(context: Context): ToDoData {
+    fun generateData(context: Context): Pair<ToDoData, Boolean> {
         val random = (0..23).random()
 
         when(random/8){
-            0 -> return ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING)
-            1 -> return ToDoData(context.getString(R.string.rv_item_learning_text), description = context.getString(R.string.rv_activity_description_text), type = TYPE_LEARNING)
-            2 -> return ToDoData(context.getString(R.string.rv_item_rest_text), type = TYPE_REST)
+            0 -> return Pair(ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING),false)
+            1 -> return Pair(ToDoData(context.getString(R.string.rv_item_learning_text), description = context.getString(R.string.rv_activity_description_text), type = TYPE_LEARNING),false)
+            2 -> return Pair(ToDoData(context.getString(R.string.rv_item_rest_text), type = TYPE_REST),false)
         }
-        return ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING)
+        return Pair(ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING),false)
     }
 
-    fun generateCleaningData(context: Context): ToDoData {
+    fun generateCleaningData(context: Context): Pair<ToDoData, Boolean> {
         val random = (0..23).random()
-        return ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING)
+        return Pair(ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING),false)
     }
 
     abstract class BaseViewHolder(view:View):RecyclerView.ViewHolder(view){
-        abstract fun bind(data: ToDoData)
+        abstract fun bind(data: Pair<ToDoData, Boolean>)
     }
 
     inner class CleaningViewHolder(view: View): BaseViewHolder(view){
-        override fun bind(data: ToDoData){
+        override fun bind(data: Pair<ToDoData, Boolean>){
             ActivityRecyclerItemCleaningBinding.bind(itemView).apply {
-                tvActionName.text = data.action
-                tvTime.text = root.context.getString(R.string.recycler_item_time_text) + data.time.toString() + ":00"
+                tvActionName.text = data.first.action
+                tvTime.text = root.context.getString(R.string.recycler_item_time_text) + data.first.time.toString() + ":00"
                 ivCleaning.setOnClickListener {
-                    onClickItemListener.onItemClick(data)
+                    onClickItemListener.onItemClick(data.first)
                 }
 
                 addItemImageView.setOnClickListener {
@@ -120,34 +120,44 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
     }
 
     inner class LearnigViewHolder(view: View): BaseViewHolder(view){
-        override fun bind(data: ToDoData){
+        override fun bind(data: Pair<ToDoData, Boolean>){
             ActivityRecyclerItemLearningBinding.bind(itemView).apply {
-                tvActionName.text = data.action
-                tvDescription.text = data.description
+                tvActionName.text = data.first.action
+                tvDescription.text = data.first.description
+
                 ivLearning.setOnClickListener {
-                    onClickItemListener.onItemClick(data)
+                    onClickItemListener.onItemClick(data.first)
+                }
+
+                tvDescription.visibility = if(listData[layoutPosition].second) View.VISIBLE else View.GONE
+
+                itemView.setOnClickListener{
+                    listData[layoutPosition] = listData[layoutPosition].let {
+                        it.first to !it.second
+                    }
+                    notifyItemChanged(layoutPosition)
                 }
             }
         }
     }
 
     inner class RestViewHolder(view: View): BaseViewHolder(view){
-        override fun bind(data: ToDoData){
+        override fun bind(data: Pair<ToDoData, Boolean>){
             ActivityRecyclerItemRestBinding.bind(itemView).apply {
-                tvActionName.text = data.action
+                tvActionName.text = data.first.action
                 ivRest.setOnClickListener {
-                    onClickItemListener.onItemClick(data)
+                    onClickItemListener.onItemClick(data.first)
                 }
             }
         }
     }
 
     inner class HeaderViewHolder(view:View): BaseViewHolder(view){
-        override fun bind(data: ToDoData){
+        override fun bind(data: Pair<ToDoData, Boolean>){
             ActivityRecyclerItemHeaderBinding.bind(itemView).apply {
-                tvName.text = data.action
+                tvName.text = data.first.action
                 itemView.setOnClickListener {
-                    onClickItemListener.onItemClick(data)
+                    onClickItemListener.onItemClick(data.first)
                 }
             }
         }

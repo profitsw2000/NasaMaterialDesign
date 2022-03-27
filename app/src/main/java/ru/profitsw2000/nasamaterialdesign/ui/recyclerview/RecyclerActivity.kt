@@ -21,10 +21,11 @@ class RecyclerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val data = arrayListOf(
-            ToDoData(getString(R.string.rv_item_cleaning_text), 15, type = TYPE_CLEANING)
+            Pair(ToDoData(getString(R.string.rv_item_cleaning_text), 15, type = TYPE_CLEANING),false),
+            Pair(ToDoData(getString(R.string.rv_item_learning_text), description = getString(R.string.rv_activity_description_text), type = TYPE_LEARNING),false)
         )
         data.shuffle()
-        data.add(0, ToDoData(getString(R.string.header), type = TYPE_HEADER))
+        data.add(0, Pair(ToDoData(getString(R.string.header), type = TYPE_HEADER),false))
         val adapter = RecyclerActivityAdapter(object :OnItemClickListener{
             override fun onItemClick(data: ToDoData) {
                 Toast.makeText(this@RecyclerActivity,"Это ${data.action}", Toast.LENGTH_SHORT).show()

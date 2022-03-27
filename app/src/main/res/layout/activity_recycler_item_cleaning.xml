@@ -38,6 +38,28 @@
         app:layout_constraintTop_toTopOf="@+id/ivCleaning" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/moveItemUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:tint="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/moveItemDown"
+        app:layout_constraintEnd_toStartOf="@+id/addItemImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/arrow_up_float" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/moveItemDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:tint="@color/design_default_color_error"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addItemImageView"
+        app:layout_constraintTop_toBottomOf="@+id/moveItemUp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/addItemImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,6 +67,7 @@
         android:background="@color/color_red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/removeItemImageView"
         app:srcCompat="@drawable/ic_plus_fab" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -54,6 +77,7 @@
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addItemImageView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/ic_archive" />
 
     <View

@@ -97,6 +97,24 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
                     listData.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
                 }
+
+                moveItemUp.setOnClickListener {
+                    layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
+                        listData.removeAt(currentPosition).apply {
+                            listData.add(currentPosition - 1,this)
+                        }
+                        notifyItemMoved(currentPosition,currentPosition-1)
+                    }
+                }
+
+                moveItemDown.setOnClickListener {
+                    layoutPosition.takeIf { it < (listData.size - 1) }?.also { currentPosition ->
+                        listData.removeAt(currentPosition).apply {
+                            listData.add(currentPosition + 1,this)
+                        }
+                        notifyItemMoved(currentPosition,currentPosition + 1)
+                    }
+                }
             }
         }
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="recycler_item_time_text">Time: </string>
+    <string name="rv_item_cleaning_text">Cleaning</string>
+    <string name="rv_item_learning_text">Learning</string>
+    <string name="rv_item_rest_text">Rest</string>
+    <string name="header">To do List</string>
+    <string name="rv_activity_description_text">Description</string>
+</resources>

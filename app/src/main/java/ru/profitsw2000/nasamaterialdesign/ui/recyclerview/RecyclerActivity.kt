@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerBinding
-import ru.profitsw2000.nasamaterialdesign.representation.TYPE_CLEANING
-import ru.profitsw2000.nasamaterialdesign.representation.TYPE_LEARNING
-import ru.profitsw2000.nasamaterialdesign.representation.TYPE_REST
-import ru.profitsw2000.nasamaterialdesign.representation.ToDoData
+import ru.profitsw2000.nasamaterialdesign.representation.*
 import ru.profitsw2000.nasamaterialdesign.ui.*
 import ru.profitsw2000.nasamaterialdesign.ui.adapters.RecyclerActivityAdapter
 
@@ -27,14 +24,15 @@ class RecyclerActivity : AppCompatActivity() {
             ToDoData(getString(R.string.rv_item_cleaning_text), 15, type = TYPE_CLEANING),
             ToDoData(getString(R.string.rv_item_cleaning_text), 11, type = TYPE_CLEANING),
             ToDoData(getString(R.string.rv_item_cleaning_text), 22, type = TYPE_CLEANING),
-            ToDoData(getString(R.string.rv_item_learning_text), description = "Описание", type = TYPE_LEARNING),
-            ToDoData(getString(R.string.rv_item_learning_text), description = "Описание", type = TYPE_LEARNING),
-            ToDoData(getString(R.string.rv_item_learning_text), description = "Описание", type = TYPE_LEARNING),
+            ToDoData(getString(R.string.rv_item_learning_text), description = getString(R.string.rv_activity_description_text), type = TYPE_LEARNING),
+            ToDoData(getString(R.string.rv_item_learning_text), description = getString(R.string.rv_activity_description_text), type = TYPE_LEARNING),
+            ToDoData(getString(R.string.rv_item_learning_text), description = getString(R.string.rv_activity_description_text), type = TYPE_LEARNING),
             ToDoData(getString(R.string.rv_item_rest_text), type = TYPE_REST),
             ToDoData(getString(R.string.rv_item_rest_text), type = TYPE_REST),
             ToDoData(getString(R.string.rv_item_rest_text), type = TYPE_REST)
         )
         data.shuffle()
+        data.add(0, ToDoData(getString(R.string.header), type = TYPE_HEADER))
         val adapter = RecyclerActivityAdapter(object :OnItemClickListener{
             override fun onItemClick(data: ToDoData) {
                 Toast.makeText(this@RecyclerActivity,"Это ${data.action}", Toast.LENGTH_SHORT).show()

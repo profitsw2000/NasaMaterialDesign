@@ -1,4 +1,4 @@
-<resources>
+<resources translatable="false">
     <string name="app_name">NasaMaterialDesign</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -32,8 +32,10 @@
     <string name="mars_rover_photos">Mars Rover Photos</string>
     <string name="show_picture_text">Показать фото дня</string>
     <string name="to_the_screen_3_text">На экран со списком</string>
-    <string name="recycler_item_time_text">Время:</string>
+    <string name="recycler_item_time_text">Время: </string>
     <string name="rv_item_cleaning_text">Уборка</string>
     <string name="rv_item_learning_text">Обучение</string>
     <string name="rv_item_rest_text">Отдых</string>
+    <string name="header">Список дел</string>
+    <string name="rv_activity_description_text">Описание</string>
 </resources>

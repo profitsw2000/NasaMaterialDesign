@@ -61,12 +61,17 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
 
     fun generateData(context: Context): ToDoData {
         val random = (0..23).random()
-        var ouput: ToDoData?
+
         when(random/8){
             0 -> return ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING)
             1 -> return ToDoData(context.getString(R.string.rv_item_learning_text), description = context.getString(R.string.rv_activity_description_text), type = TYPE_LEARNING)
             2 -> return ToDoData(context.getString(R.string.rv_item_rest_text), type = TYPE_REST)
         }
+        return ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING)
+    }
+
+    fun generateCleaningData(context: Context): ToDoData {
+        val random = (0..23).random()
         return ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING)
     }
 
@@ -81,6 +86,16 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
                 tvTime.text = root.context.getString(R.string.recycler_item_time_text) + data.time.toString() + ":00"
                 ivCleaning.setOnClickListener {
                     onClickItemListener.onItemClick(data)
+                }
+
+                addItemImageView.setOnClickListener {
+                    listData.add((layoutPosition + 1),generateCleaningData(root.context))
+                    notifyItemInserted(layoutPosition + 1)
+                }
+
+                removeItemImageView.setOnClickListener {
+                    listData.removeAt(layoutPosition)
+                    notifyItemRemoved(layoutPosition)
                 }
             }
         }

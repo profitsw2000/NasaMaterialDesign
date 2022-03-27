@@ -16,7 +16,7 @@ const val TYPE_PRIORITY_VERY_HIGH = 5
 data class ToDoData(
     val action: String = "Cleaning",
     val time: Int? = null,
-    val description: String?,
+    val description: String? = null,
     val type: Int = TYPE_CLEANING,
-    val priority: Int = TYPE_PRIORITY_VERY_LOW
+    val priority: Int? = null
 )

@@ -71,6 +71,7 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
         fun bind(data: ToDoData){
             ActivityRecyclerItemLearningBinding.bind(itemView).apply {
                 tvActionName.text = data.action
+                tvDescription.text = data.description
                 ivLearning.setOnClickListener {
                     onClickItemListener.onItemClick(data)
                 }

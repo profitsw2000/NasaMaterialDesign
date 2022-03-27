@@ -33,4 +33,7 @@
     <string name="show_picture_text">Показать фото дня</string>
     <string name="to_the_screen_3_text">На экран со списком</string>
     <string name="recycler_item_time_text">Время:</string>
+    <string name="rv_item_cleaning_text">Уборка</string>
+    <string name="rv_item_learning_text">Обучение</string>
+    <string name="rv_item_rest_text">Отдых</string>
 </resources>

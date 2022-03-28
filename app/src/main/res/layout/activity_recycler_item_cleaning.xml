@@ -25,6 +25,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_cleaning" />
 
+    <ru.profitsw2000.nasamaterialdesign.ui.utils.EquilateralImageView
+        android:id="@+id/ivFavoriteUnmarked"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/item_cleaning_margi_start"
+        app:layout_constraintStart_toEndOf="@+id/ivCleaning"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        app:srcCompat="@drawable/icon_favorite_unmarked"/>
+
+    <ru.profitsw2000.nasamaterialdesign.ui.utils.EquilateralImageView
+        android:id="@+id/ivFavoriteMarked"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/item_cleaning_margi_start"
+        app:layout_constraintStart_toEndOf="@+id/ivCleaning"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/icon_favorite_marked"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTime"
         android:layout_width="0dp"

@@ -36,6 +36,65 @@ class RecyclerActivity : AppCompatActivity() {
         adapter.setData(data)
         binding.recyclerView.adapter = adapter
         binding.recyclerActivityFAB.setOnClickListener { adapter.appendItem(this@RecyclerActivity) }
+
+        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView)
+    }
+
+    class ItemTouchHelperCallback(val recyclerActivityAdapter:RecyclerActivityAdapter):ItemTouchHelper.Callback(){
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+            return makeMovementFlags(dragFlags,swipeFlags)
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            from: RecyclerView.ViewHolder,
+            to: RecyclerView.ViewHolder
+        ): Boolean {
+            recyclerActivityAdapter.onItemMove(from.adapterPosition,to.adapterPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            recyclerActivityAdapter.onItemDismiss(viewHolder.adapterPosition)
+        }
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            when(viewHolder){
+                is RecyclerActivityAdapter.CleaningViewHolder -> {
+                    if(actionState!=ItemTouchHelper.ACTION_STATE_IDLE) viewHolder.onItemSelected()
+                }
+
+                is RecyclerActivityAdapter.LearnigViewHolder -> {
+                    if(actionState!=ItemTouchHelper.ACTION_STATE_IDLE) viewHolder.onItemSelected()
+                }
+
+                is RecyclerActivityAdapter.RestViewHolder -> {
+                    if(actionState!=ItemTouchHelper.ACTION_STATE_IDLE) viewHolder.onItemSelected()
+                }
+            }
+        }
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            when(viewHolder){
+                is RecyclerActivityAdapter.CleaningViewHolder -> {
+                    viewHolder.onItemClear()
+                }
+
+                is RecyclerActivityAdapter.LearnigViewHolder -> {
+                    viewHolder.onItemClear()
+                }
+
+                is RecyclerActivityAdapter.RestViewHolder -> {
+                    viewHolder.onItemClear()
+                }
+            }
+        }
+
     }
 
     fun getCurrentTheme(): Int {

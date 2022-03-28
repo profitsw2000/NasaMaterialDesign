@@ -75,15 +75,19 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        listData.removeAt(fromPosition).apply {
-            listData.add(toPosition, this)
+        if (toPosition != 0){
+            listData.removeAt(fromPosition).apply {
+                listData.add(toPosition, this)
+            }
+            notifyItemMoved(fromPosition, toPosition)
         }
-        notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onItemDismiss(position: Int) {
-        listData.removeAt(position)
-        notifyItemRemoved(position)
+        if (position != 0){
+            listData.removeAt(position)
+            notifyItemRemoved(position)
+        }
     }
 
     abstract class BaseViewHolder(view:View):RecyclerView.ViewHolder(view){

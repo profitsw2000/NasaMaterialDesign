@@ -1,10 +1,10 @@
 package ru.profitsw2000.nasamaterialdesign.ui.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerItemCleaningBinding
@@ -13,10 +13,9 @@ import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerItemLearni
 import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerItemRestBinding
 import ru.profitsw2000.nasamaterialdesign.representation.*
 import ru.profitsw2000.nasamaterialdesign.ui.recyclerview.OnItemClickListener
-import kotlin.random.Random
 
 class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
-    RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>() {
+    RecyclerView.Adapter<RecyclerActivityAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
     private lateinit var listData: MutableList<Pair<ToDoData,Boolean>>
 
     fun setData(listData:MutableList<Pair<ToDoData,Boolean>>){
@@ -75,11 +74,23 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
         return Pair(ToDoData(context.getString(R.string.rv_item_cleaning_text), random, type = TYPE_CLEANING),false)
     }
 
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        listData.removeAt(fromPosition).apply {
+            listData.add(toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        listData.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     abstract class BaseViewHolder(view:View):RecyclerView.ViewHolder(view){
         abstract fun bind(data: Pair<ToDoData, Boolean>)
     }
 
-    inner class CleaningViewHolder(view: View): BaseViewHolder(view){
+    inner class CleaningViewHolder(view: View): BaseViewHolder(view), ItemTouchHelperViewHolder{
         override fun bind(data: Pair<ToDoData, Boolean>){
             ActivityRecyclerItemCleaningBinding.bind(itemView).apply {
                 tvActionName.text = data.first.action
@@ -117,9 +128,17 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
                 }
             }
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.YELLOW)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
     }
 
-    inner class LearnigViewHolder(view: View): BaseViewHolder(view){
+    inner class LearnigViewHolder(view: View): BaseViewHolder(view), ItemTouchHelperViewHolder{
         override fun bind(data: Pair<ToDoData, Boolean>){
             ActivityRecyclerItemLearningBinding.bind(itemView).apply {
                 tvActionName.text = data.first.action
@@ -139,9 +158,17 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
                 }
             }
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.YELLOW)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
     }
 
-    inner class RestViewHolder(view: View): BaseViewHolder(view){
+    inner class RestViewHolder(view: View): BaseViewHolder(view), ItemTouchHelperViewHolder{
         override fun bind(data: Pair<ToDoData, Boolean>){
             ActivityRecyclerItemRestBinding.bind(itemView).apply {
                 tvActionName.text = data.first.action
@@ -149,6 +176,14 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
                     onClickItemListener.onItemClick(data.first)
                 }
             }
+        }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.YELLOW)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
         }
     }
 

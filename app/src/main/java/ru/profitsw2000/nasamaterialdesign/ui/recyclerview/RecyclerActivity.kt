@@ -3,6 +3,8 @@ package ru.profitsw2000.nasamaterialdesign.ui.recyclerview
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.databinding.ActivityRecyclerBinding
 import ru.profitsw2000.nasamaterialdesign.representation.*

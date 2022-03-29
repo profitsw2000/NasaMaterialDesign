@@ -122,7 +122,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun zoomImage() {
         val changeBounds = ChangeImageTransform()
-        changeBounds.duration = 3000
+        changeBounds.duration = 2000
         TransitionManager.beginDelayedTransition(binding.main, changeBounds)
         val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
         params.height =

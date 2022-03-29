@@ -130,6 +130,31 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
                         notifyItemMoved(currentPosition,currentPosition + 1)
                     }
                 }
+
+
+                ivFavoriteUnmarked.setOnClickListener{
+                    layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
+                        listData.removeAt(currentPosition).apply {
+                            listData.add(1,this)
+                        }
+                        notifyItemMoved(currentPosition,1)
+                    }
+                    ivFavoriteUnmarked.visibility = View.GONE
+                    ivFavoriteMarked.visibility = View.VISIBLE
+                }
+
+                ivFavoriteMarked.setOnClickListener{
+                    val endPosition = listData.size - 1
+                    layoutPosition.takeIf { it < (endPosition) }?.also { currentPosition ->
+                        listData.removeAt(currentPosition).apply {
+                            listData.add(endPosition,this)
+                        }
+                        notifyItemMoved(currentPosition,endPosition)
+                    }
+
+                    ivFavoriteUnmarked.visibility = View.VISIBLE
+                    ivFavoriteMarked.visibility = View.GONE
+                }
             }
         }
 
@@ -160,6 +185,32 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
                     }
                     notifyItemChanged(layoutPosition)
                 }
+
+
+                ivFavoriteUnmarked.setOnClickListener{
+                    layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
+                        listData.removeAt(currentPosition).apply {
+                            listData.add(1,this)
+                        }
+                        notifyItemMoved(currentPosition,1)
+                    }
+
+                    ivFavoriteUnmarked.visibility = View.GONE
+                    ivFavoriteMarked.visibility = View.VISIBLE
+                }
+
+                ivFavoriteMarked.setOnClickListener{
+                    val endPosition = listData.size - 1
+                    layoutPosition.takeIf { it < (endPosition) }?.also { currentPosition ->
+                        listData.removeAt(currentPosition).apply {
+                            listData.add(endPosition,this)
+                        }
+                        notifyItemMoved(currentPosition,endPosition)
+                    }
+
+                    ivFavoriteUnmarked.visibility = View.VISIBLE
+                    ivFavoriteMarked.visibility = View.GONE
+                }
             }
         }
 
@@ -179,6 +230,31 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
                 ivRest.setOnClickListener {
                     onClickItemListener.onItemClick(data.first)
                 }
+
+                ivFavoriteUnmarked.setOnClickListener{
+                    layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
+                        listData.removeAt(currentPosition).apply {
+                            listData.add(1,this)
+                        }
+                        notifyItemMoved(currentPosition,1)
+                    }
+
+                    ivFavoriteUnmarked.visibility = View.GONE
+                    ivFavoriteMarked.visibility = View.VISIBLE
+                }
+
+                ivFavoriteMarked.setOnClickListener{
+                    val endPosition = listData.size - 1
+                    layoutPosition.takeIf { it < (endPosition) }?.also { currentPosition ->
+                        listData.removeAt(currentPosition).apply {
+                            listData.add(endPosition,this)
+                        }
+                        notifyItemMoved(currentPosition,endPosition)
+                    }
+
+                    ivFavoriteUnmarked.visibility = View.VISIBLE
+                    ivFavoriteMarked.visibility = View.GONE
+                }
             }
         }
 
@@ -189,6 +265,7 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
         override fun onItemClear() {
             itemView.setBackgroundColor(0)
         }
+
     }
 
     inner class HeaderViewHolder(view:View): BaseViewHolder(view){

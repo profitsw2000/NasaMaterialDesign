@@ -20,6 +20,11 @@ class RecyclerActivityAdapter (val onClickItemListener:OnItemClickListener):
 
     fun setData(listData:MutableList<Pair<ToDoData,Boolean>>){
         this.listData = listData
+        notifyDataSetChanged()
+    }
+
+    fun getData(): MutableList<Pair<ToDoData, Boolean>> {
+        return listData
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {

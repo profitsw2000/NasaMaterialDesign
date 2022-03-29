@@ -37,6 +37,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputLayout"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/findResult"
+        android:textSize="@dimen/nothing_find_text_size"
+        android:text="@string/nothing_find_text"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/recyclerActivityFAB"
         android:layout_width="wrap_content"

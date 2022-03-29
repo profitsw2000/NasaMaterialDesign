@@ -31,7 +31,7 @@
         android:layout_height="30dp"
         android:layout_margin="@dimen/item_cleaning_margi_start"
         app:layout_constraintStart_toEndOf="@+id/ivLearning"
-        app:layout_constraintBottom_toBottomOf="@id/tvDescription"
+        app:layout_constraintBottom_toTopOf="@id/tvDescription"
         android:visibility="visible"
         app:srcCompat="@drawable/icon_favorite_unmarked"/>
 
@@ -41,7 +41,7 @@
         android:layout_height="30dp"
         android:layout_margin="@dimen/item_cleaning_margi_start"
         app:layout_constraintStart_toEndOf="@+id/ivLearning"
-        app:layout_constraintBottom_toBottomOf="@id/tvDescription"
+        app:layout_constraintBottom_toTopOf="@id/tvDescription"
         android:visibility="invisible"
         app:srcCompat="@drawable/icon_favorite_marked"/>
 

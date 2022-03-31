@@ -6,7 +6,12 @@ import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.BulletSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.ScaleXSpan
 import android.view.*
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
@@ -14,6 +19,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
@@ -181,8 +187,10 @@ class PictureOfTheDayFragment : Fragment() {
                         imageView.load(data.serverResponseData.hdurl)
                         title.setText(data.serverResponseData.title)
                         date.setText(data.serverResponseData.date)
-                        included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
-                        included.bottomSheetDescription.text = data.serverResponseData.explanation
+                        //included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
+                        //included.bottomSheetDescription.text = data.serverResponseData.explanation
+                        if (data.serverResponseData.title != null && data.serverResponseData.explanation != null)
+                        setSpannedText(data.serverResponseData.title, data.serverResponseData.explanation)
                     }
                 }
             }
@@ -202,6 +210,27 @@ class PictureOfTheDayFragment : Fragment() {
                 showDialog("Error", data.error.message!!)
             }
         }
+    }
+
+    private fun setSpannedText(title: String, text: String){
+        //Заглавие
+        val titleSpannableString = SpannableString(title)
+        val gap = 100
+        val color = ContextCompat.getColor(requireContext(), R.color.color_red)
+        val bulletRadius = 20
+        val fontSizeMultiplier = 2.0f
+        val fontScaleMultiplier = 1.5f
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            titleSpannableString.setSpan(BulletSpan(gap, color, bulletRadius), 0, title.length, 0)
+        } else {
+            titleSpannableString.setSpan(BulletSpan(gap, color), 0, title.length, 0)
+        }
+        titleSpannableString.setSpan(RelativeSizeSpan(fontSizeMultiplier), 0, title.length, 0)
+        titleSpannableString.setSpan(ScaleXSpan(fontScaleMultiplier), 0, title.length, 0)
+        binding.included.bottomSheetDescriptionHeader.text = titleSpannableString
+
     }
 
     private fun imageAnimation() {

@@ -19,8 +19,8 @@ class SplashFragment : Fragment() {
         super.onCreate(savedInstanceState)
         Handler(requireContext().mainLooper).postDelayed({
             openMainFragment()
-
         }, 3000L)
+
     }
 
     override fun onCreateView(
@@ -29,6 +29,12 @@ class SplashFragment : Fragment() {
     ): View? {
         _binding = FragmentSplashBinding.inflate(inflater)
         return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.iv.animate().rotationBy(540f).setDuration(5000L).start()
     }
 
     override fun onDestroy() {

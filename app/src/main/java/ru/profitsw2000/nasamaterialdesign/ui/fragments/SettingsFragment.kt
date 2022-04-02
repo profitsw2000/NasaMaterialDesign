@@ -52,8 +52,6 @@ class SettingsFragment : Fragment() {
         }
     }
 
-
-
     private fun setChipFromChipGroup(currentTheme: Int) {
         when(currentTheme){
             CosmicTheme -> {

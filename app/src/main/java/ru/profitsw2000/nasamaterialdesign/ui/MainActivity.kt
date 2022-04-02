@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.ui.fragments.PictureOfTheDayFragment
+import ru.profitsw2000.nasamaterialdesign.ui.fragments.SplashFragment
 
 const val CosmicTheme = 0
 const val MoonTheme = 1
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, PictureOfTheDayFragment.newInstance())
+                .replace(R.id.container, SplashFragment.newInstance())
                 .commitNow()
         }
         setContentView(R.layout.activity_main)
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             CosmicTheme -> R.style.Cosmic
             MoonTheme -> R.style.Moon
             MarsTheme -> R.style.Mars
-            else -> 0
+            else -> R.style.Cosmic
         }
     }
 }

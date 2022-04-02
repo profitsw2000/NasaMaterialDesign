@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //setTheme(R.style.MySplashTheme)
         setTheme(getRealStyle(getCurrentTheme()))
 
         if (savedInstanceState == null) {

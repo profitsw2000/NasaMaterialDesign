@@ -201,8 +201,6 @@ class PictureOfTheDayFragment : Fragment() {
                         title.setText(data.serverResponseData.title)
                         date.setText(data.serverResponseData.date)
 
-                        //included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
-                        //included.bottomSheetDescription.text = data.serverResponseData.explanation
                         if (data.serverResponseData.title != null && data.serverResponseData.explanation != null)
                         setSpannedText(data.serverResponseData.title, data.serverResponseData.explanation)
                     }

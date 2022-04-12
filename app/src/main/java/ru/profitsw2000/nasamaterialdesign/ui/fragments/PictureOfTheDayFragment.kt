@@ -1,18 +1,26 @@
 package ru.profitsw2000.nasamaterialdesign.ui.fragments
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AnticipateOvershootInterpolator
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.api.load
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +29,7 @@ import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayViewModel
 import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMainBinding
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayData
 import ru.profitsw2000.nasamaterialdesign.ui.MainActivity
+import ru.profitsw2000.nasamaterialdesign.ui.utils.DoubleClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,6 +44,10 @@ class PictureOfTheDayFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     var isMain:Boolean = true
+    private var flag = false
+    private var doubleClick = false
+    private val duration = 1000L
+    private var zoomFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,27 +74,11 @@ class PictureOfTheDayFragment : Fragment() {
 
         binding.fab.setOnClickListener{
             if(isMain){
-                with(binding){
-                    bottomAppBar.navigationIcon = null
-                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                    fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_back_fab))
-                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
-                }
+                binding.mainGroup.hide()
+                expandFAB()
             }else{
-                with(binding) {
-                    bottomAppBar.navigationIcon = ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_hamburger_menu_bottom_bar
-                    )
-                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                    fab.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_plus_fab
-                        )
-                    )
-                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
-                }
+                collapseFAB()
+                binding.mainGroup.show()
             }
             isMain = !isMain
         }
@@ -92,7 +89,77 @@ class PictureOfTheDayFragment : Fragment() {
                 setImageWithSelectedChip(it.text.toString())
             }
         }
+
+        //слушатель нажатия на картинку
+        binding.imageView.setOnClickListener(object: DoubleClickListener(){
+            override fun onDoubleClick() {
+                doubleClick = true
+                zoomFlag = !zoomFlag
+                zoomImage()
+            }
+
+            override fun onSingleClick() {
+                if (!doubleClick) {
+                    flag = !flag
+                    val constraintSet= ConstraintSet()
+                    constraintSet.clone(binding.main)
+                    if (flag) {
+                        showPictureTitle(constraintSet)
+                    } else {
+                        hidePictureTitle(constraintSet)
+                    }
+                }
+                doubleClick = false
+            }
+
+        })
+
+        //слушатель нажатия на текст "Показать фото дня"
+        binding.showPictureOfTheDayText.setOnClickListener {
+            imageAnimation()
+        }
     }
+
+    private fun zoomImage() {
+        val changeBounds = ChangeImageTransform()
+        changeBounds.duration = 3000
+        TransitionManager.beginDelayedTransition(binding.main, changeBounds)
+        val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
+        params.height =
+            if (zoomFlag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+        params.width =
+            if (zoomFlag) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.imageView.layoutParams = params
+        binding.imageView.scaleType =
+            if (zoomFlag) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+    }
+
+    private fun showPictureTitle(constraintSet: ConstraintSet) {
+        constraintSet.clone(binding.main)
+        val changeBounds = ChangeBounds()
+        changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+        changeBounds.duration= 1000L
+        TransitionManager.beginDelayedTransition(binding.main,changeBounds)
+
+        constraintSet.connect(R.id.title,ConstraintSet.END, R.id.main,ConstraintSet.END)
+        constraintSet.connect(R.id.title,ConstraintSet.START, R.id.main,ConstraintSet.START)
+        constraintSet.setHorizontalBias(R.id.title,0.8f)
+        constraintSet.constrainPercentWidth(R.id.title,0.5f)
+        constraintSet.applyTo(binding.main)
+    }
+
+    private fun hidePictureTitle(constraintSet: ConstraintSet) {
+        constraintSet.clone(binding.main)
+        val changeBounds = ChangeBounds()
+        changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+        changeBounds.duration= 1000L
+        TransitionManager.beginDelayedTransition(binding.main,changeBounds)
+
+        constraintSet.connect(R.id.title,ConstraintSet.END, R.id.main,ConstraintSet.START)
+        constraintSet.clear(R.id.title,ConstraintSet.START)
+        constraintSet.applyTo(binding.main)
+    }
+
 
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
@@ -112,6 +179,8 @@ class PictureOfTheDayFragment : Fragment() {
                         progressBar.hide()
                         included.bottomSheet.show()
                         imageView.load(data.serverResponseData.hdurl)
+                        title.setText(data.serverResponseData.title)
+                        date.setText(data.serverResponseData.date)
                         included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
                         included.bottomSheetDescription.text = data.serverResponseData.explanation
                     }
@@ -133,6 +202,24 @@ class PictureOfTheDayFragment : Fragment() {
                 showDialog("Error", data.error.message!!)
             }
         }
+    }
+
+    private fun imageAnimation() {
+
+        val constraintLayout = binding.main
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(constraintLayout)
+        constraintSet.clear(R.id.imageView, ConstraintSet.START)
+        constraintSet.clear(R.id.show_picture_of_the_day_text, ConstraintSet.START)
+        constraintSet.connect(R.id.imageView, ConstraintSet.START, R.id.main, ConstraintSet.START, 0)
+        constraintSet.connect(R.id.imageView, ConstraintSet.END, R.id.main, ConstraintSet.END, 0)
+        constraintSet.connect(R.id.show_picture_of_the_day_text, ConstraintSet.END, R.id.main, ConstraintSet.START, 0)
+        val transition = TransitionSet()
+        val changeBounds = ChangeBounds()
+        changeBounds.duration = 2000
+        transition.addTransition(changeBounds)
+        TransitionManager.beginDelayedTransition(binding.main, transition)
+        constraintSet.applyTo(constraintLayout)
     }
 
     override fun onCreateView(
@@ -197,6 +284,64 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
+    private fun expandFAB() {
+        ObjectAnimator.ofFloat( binding.fab,View.ROTATION,0f,405f).setDuration(duration).start()
+        ObjectAnimator.ofFloat( binding.optionOneContainer,View.TRANSLATION_Y,-50f,-260f).setDuration(duration).start()
+        ObjectAnimator.ofFloat( binding.optionTwoContainer,View.TRANSLATION_Y,-20f,-130f).setDuration(duration).start()
+
+        binding.optionOneContainer.animate()
+            .alpha(1f)
+            .setDuration(duration/2)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.optionOneContainer.isClickable = true
+                }
+            })
+        binding.optionTwoContainer.animate()
+            .alpha(1f)
+            .setDuration(duration/2)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.optionTwoContainer.isClickable = true
+                }
+            })
+
+        binding.transparentBackground.animate()
+            .alpha(0.5f)
+            .setDuration(duration)
+
+    }
+
+    private fun collapseFAB() {
+        ObjectAnimator.ofFloat( binding.fab,View.ROTATION,405f,0f).setDuration(duration).start()
+        ObjectAnimator.ofFloat( binding.optionOneContainer,View.TRANSLATION_Y,-260f,-50f).setDuration(duration).start()
+        ObjectAnimator.ofFloat( binding.optionTwoContainer,View.TRANSLATION_Y,-130f,-20f).setDuration(duration).start()
+
+        binding.optionOneContainer.animate()
+            .alpha(0f)
+            .setDuration(duration/2)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.optionOneContainer.isClickable = false
+                }
+            })
+        binding.optionTwoContainer.animate()
+            .alpha(0f)
+            .setDuration(duration/2)
+            .setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?) {
+                    super.onAnimationEnd(animation)
+                    binding.optionTwoContainer.isClickable = false
+                }
+            })
+        binding.transparentBackground.animate()
+            .alpha(0f)
+            .setDuration(duration)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -256,13 +401,3 @@ class PictureOfTheDayFragment : Fragment() {
         fun newInstance() = PictureOfTheDayFragment()
     }
 }
-/*val behavior = BottomSheetBehavior.from(binding.includeBottomSheet.bottomSheetContainer)
-if (isMain) {
-    isMain = false
-    behavior.state = BottomSheetBehavior.STATE_EXPANDED
-    ...
-} else {
-    isMain = true
-    behavior.state = BottomSheetBehavior.STATE_HIDDEN
-    ...
-}*/

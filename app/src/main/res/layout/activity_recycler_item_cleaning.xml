@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvActionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rv_item_cleaning_text"
+        android:layout_marginStart="@dimen/item_cleaning_margi_start"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCleaning"
+        app:layout_constraintTop_toTopOf="@+id/ivCleaning" />
+
+    <ru.profitsw2000.nasamaterialdesign.ui.utils.EquilateralImageView
+        android:id="@+id/ivCleaning"
+        android:layout_width="@dimen/recycler_item_main_image_size"
+        android:layout_height="@dimen/recycler_item_main_image_size"
+        android:layout_marginStart="@dimen/item_cleaning_margi_start"
+        app:layout_constraintStart_toEndOf="@id/tvActionName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_cleaning" />
+
+    <ru.profitsw2000.nasamaterialdesign.ui.utils.EquilateralImageView
+        android:id="@+id/ivFavoriteUnmarked"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/item_cleaning_margi_start"
+        app:layout_constraintStart_toEndOf="@+id/ivCleaning"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        app:srcCompat="@drawable/icon_favorite_unmarked"/>
+
+    <ru.profitsw2000.nasamaterialdesign.ui.utils.EquilateralImageView
+        android:id="@+id/ivFavoriteMarked"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/item_cleaning_margi_start"
+        app:layout_constraintStart_toEndOf="@+id/ivCleaning"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/icon_favorite_marked"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:layout_marginStart="@dimen/item_cleaning_margi_start"
+        android:text="@string/recycler_item_time_text"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCleaning"
+        app:layout_constraintStart_toEndOf="@+id/ivCleaning"
+        app:layout_constraintTop_toTopOf="@+id/ivCleaning" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/moveItemUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:tint="@color/design_default_color_error"
+        app:layout_constraintBottom_toTopOf="@+id/moveItemDown"
+        app:layout_constraintEnd_toStartOf="@+id/addItemImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/arrow_up_float" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/moveItemDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:tint="@color/design_default_color_error"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addItemImageView"
+        app:layout_constraintTop_toBottomOf="@+id/moveItemUp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/addItemImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/color_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/removeItemImageView"
+        app:srcCompat="@drawable/ic_plus_fab" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/removeItemImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addItemImageView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_archive" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCleaning"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

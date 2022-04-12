@@ -19,6 +19,11 @@
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/font/lobster.xml" value="0.165625" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.264" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_main.xml" value="0.1375" />
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_recycler.xml" value="0.4" />
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_recycler_item_cleaning.xml" value="0.6" />
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_recycler_item_header.xml" value="0.1375" />
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_recycler_item_learning.xml" value="0.6" />
+        <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/activity_recycler_item_rest.xml" value="0.536" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/bottom_navigation_layout.xml" value="0.1375" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.6" />
         <entry key="..\:/PROJECTS/Android_prj/GeekBrains/NasaMaterialDesign/app/src/main/res/layout/fragment_earth.xml" value="0.3125" />

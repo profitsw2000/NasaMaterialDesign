@@ -10,6 +10,7 @@ import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.databinding.BottomNavigationLayoutBinding
 import ru.profitsw2000.nasamaterialdesign.ui.fragments.navigation.BottomNavigationActivity
 import ru.profitsw2000.nasamaterialdesign.ui.fragments.viewpager.ViewPagerActivity
+import ru.profitsw2000.nasamaterialdesign.ui.recyclerview.RecyclerActivity
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     private var _binding: BottomNavigationLayoutBinding? = null
@@ -35,7 +36,11 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_two->{
                     startActivity(Intent(requireContext(), BottomNavigationActivity::class.java))
                 }
+                R.id.navigation_three->{
+                    startActivity(Intent(requireContext(), RecyclerActivity::class.java))
+                }
             }
+            dismiss()
             true
         }
     }

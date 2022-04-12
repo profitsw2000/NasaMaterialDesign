@@ -122,7 +122,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun zoomImage() {
         val changeBounds = ChangeImageTransform()
-        changeBounds.duration = 3000
+        changeBounds.duration = 2000
         TransitionManager.beginDelayedTransition(binding.main, changeBounds)
         val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
         params.height =
@@ -237,7 +237,10 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.app_bar_fav -> Toast.makeText(requireContext(),"Favourite",Toast.LENGTH_SHORT).show()
+            R.id.app_bar_fav -> {
+                bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheet)
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
             R.id.app_bar_settings -> openSettingsFragment()
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"")

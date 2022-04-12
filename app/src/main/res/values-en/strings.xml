@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="recycler_item_time_text">Time: </string>
+    <string name="rv_item_cleaning_text">Cleaning</string>
+    <string name="rv_item_learning_text">Learning</string>
+    <string name="rv_item_rest_text">Rest</string>
+    <string name="header">To do List</string>
+    <string name="rv_activity_description_text">We are going to learn Material Design. Material is an adaptable system of guidelines, components, and tools that support the best practices of user interface design. Backed by open-source code, Material streamlines collaboration between designers and developers, and helps teams quickly build beautiful products.</string>
+    <string name="nothing_find_text">Nothing found for your request </string>
+</resources>

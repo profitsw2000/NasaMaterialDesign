@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recycler_item_main_image_size">120dp</dimen>
+    <dimen name="item_cleaning_margi_start">10dp</dimen>
+    <dimen name="activity_recycler_fab_margin">15dp</dimen>
+    <dimen name="nothing_find_text_size">20sp</dimen>
+</resources>

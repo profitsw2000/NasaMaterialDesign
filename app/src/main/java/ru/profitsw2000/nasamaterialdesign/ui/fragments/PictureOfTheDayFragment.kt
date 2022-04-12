@@ -5,15 +5,22 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.*
 import android.view.*
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
-import android.widget.Toast
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
@@ -181,8 +188,10 @@ class PictureOfTheDayFragment : Fragment() {
                         imageView.load(data.serverResponseData.hdurl)
                         title.setText(data.serverResponseData.title)
                         date.setText(data.serverResponseData.date)
-                        included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
-                        included.bottomSheetDescription.text = data.serverResponseData.explanation
+                        //included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
+                        //included.bottomSheetDescription.text = data.serverResponseData.explanation
+                        if (data.serverResponseData.title != null && data.serverResponseData.explanation != null)
+                        setSpannedText(data.serverResponseData.title, data.serverResponseData.explanation)
                     }
                 }
             }
@@ -201,6 +210,80 @@ class PictureOfTheDayFragment : Fragment() {
                 }
                 showDialog("Error", data.error.message!!)
             }
+        }
+    }
+
+    private fun setSpannedText(title: String, text: String){
+        //Заглавие
+        val titleSpannableString = SpannableString(title)
+        val gap = 100
+        val color = ContextCompat.getColor(requireContext(), R.color.color_red)
+        val bulletRadius = 20
+        val fontSizeMultiplier = 2.0f
+        val fontScaleMultiplier = 1.5f
+        //описание фото дня
+        val lineHeight = 75
+        var spannableDescription  = SpannableStringBuilder(text)
+
+        //Изменение заголовка
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            titleSpannableString.setSpan(BulletSpan(gap, color, bulletRadius), 0, title.length, 0)
+        } else {
+            titleSpannableString.setSpan(BulletSpan(gap, color), 0, title.length, 0)
+        }
+        titleSpannableString.setSpan(RelativeSizeSpan(fontSizeMultiplier), 0, title.length, 0)
+        titleSpannableString.setSpan(ScaleXSpan(fontScaleMultiplier), 0, title.length, 0)
+        binding.included.bottomSheetDescriptionHeader.text = titleSpannableString
+
+        //работа с текстом описания к фото дня
+        binding.included.bottomSheetDescription.setText(spannableDescription, TextView.BufferType.EDITABLE)
+        spannableDescription = binding.included.bottomSheetDescription.text as SpannableStringBuilder
+
+        //установка высоты строки
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            spannableDescription.setSpan(LineHeightSpan.Standard(lineHeight), 0, spannableDescription.length, 0)
+        }
+
+        //текст делится на предложения, каждое предложение со своим стилем
+        //стиль предложения повторяется через каждые 2 предложения
+        var fromIndex = 0
+        var pointCounter = 0
+        var toIndex = spannableDescription.indexOf('.', fromIndex)
+        while (toIndex != -1) {
+            pointCounter++
+            when(pointCounter%3) {
+                1 -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        spannableDescription.setSpan(StyleSpan(Typeface.BOLD_ITALIC), fromIndex, toIndex, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+                        val fontRes = ResourcesCompat.getFont(requireContext(), R.font.bonbon)
+                        val typeface = Typeface.create(fontRes, Typeface.BOLD)
+                        spannableDescription.setSpan(TypefaceSpan(typeface), fromIndex, toIndex, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+                        val bkgColor = ContextCompat.getColor(requireContext(), R.color.color_brown_600)
+                        spannableDescription.setSpan(BackgroundColorSpan(bkgColor), fromIndex, toIndex, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+                        val frgColor = ContextCompat.getColor(requireContext(), R.color.primaryColorMoon)
+                        spannableDescription.setSpan(ForegroundColorSpan(frgColor), fromIndex, toIndex, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+                        val stripeColor = ContextCompat.getColor(requireContext(), R.color.color_green)
+                        val stripeWidth = 40
+                        val gapWidth = 100
+                        spannableDescription.setSpan(QuoteSpan(stripeColor, stripeWidth, gapWidth), fromIndex, toIndex + 1, 0)
+                    }
+                }
+                2 -> {
+                    spannableDescription.setSpan(UnderlineSpan(), fromIndex + 1, toIndex, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+                }
+                else -> {
+                    spannableDescription.setSpan(StrikethroughSpan(), fromIndex + 1, toIndex, SpannableString.SPAN_EXCLUSIVE_INCLUSIVE)
+                }
+            }
+            val verticalAlignment = DynamicDrawableSpan.ALIGN_BASELINE
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.icons_smile)!!
+
+            spannableDescription.insert(toIndex + 1,"\n")
+            drawable.setBounds(0,0,40,40)
+            spannableDescription.setSpan(ImageSpan(drawable, verticalAlignment), toIndex,toIndex + 1,0)
+
+            fromIndex = toIndex + 1
+            toIndex = spannableDescription.indexOf('.', fromIndex)
         }
     }
 

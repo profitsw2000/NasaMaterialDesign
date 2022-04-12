@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
@@ -31,6 +32,8 @@ import coil.api.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import ru.profitsw2000.nasamaterialdesign.R
 import ru.profitsw2000.nasamaterialdesign.model.PictureOfTheDayViewModel
 import ru.profitsw2000.nasamaterialdesign.databinding.FragmentMainBinding
@@ -39,6 +42,7 @@ import ru.profitsw2000.nasamaterialdesign.ui.MainActivity
 import ru.profitsw2000.nasamaterialdesign.ui.utils.DoubleClickListener
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -185,11 +189,19 @@ class PictureOfTheDayFragment : Fragment() {
                         mainGroup.show()
                         progressBar.hide()
                         included.bottomSheet.show()
-                        imageView.load(data.serverResponseData.hdurl)
+                        if (data.serverResponseData.mediaType == "video") {
+                            binding.ytPlayer.visibility = View.VISIBLE
+                            binding.imageView.visibility = View.GONE
+                            showNasaVideo(extractYTId(url))
+                        } else {
+                            binding.ytPlayer.visibility = View.GONE
+                            binding.imageView.visibility = View.VISIBLE
+                            binding.imageView.load(data.serverResponseData.hdurl)
+                        }
+
                         title.setText(data.serverResponseData.title)
                         date.setText(data.serverResponseData.date)
-                        //included.bottomSheetDescriptionHeader.text = data.serverResponseData.title
-                        //included.bottomSheetDescription.text = data.serverResponseData.explanation
+
                         if (data.serverResponseData.title != null && data.serverResponseData.explanation != null)
                         setSpannedText(data.serverResponseData.title, data.serverResponseData.explanation)
                     }
@@ -285,6 +297,33 @@ class PictureOfTheDayFragment : Fragment() {
             fromIndex = toIndex + 1
             toIndex = spannableDescription.indexOf('.', fromIndex)
         }
+    }
+
+
+    private fun showNasaVideo(videoId: String) {
+        with(binding) {
+            lifecycle.addObserver(binding.ytPlayer)
+
+            ytPlayer.addYouTubePlayerListener(object :
+                AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    youTubePlayer.cueVideo(videoId, 0f)
+                }
+            })
+        }
+    }
+
+    fun extractYTId(ytUrl: String): String {
+        var vId: String? = null
+        val pattern = Pattern.compile(
+            "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
+            Pattern.CASE_INSENSITIVE
+        )
+        val matcher = pattern.matcher(ytUrl)
+        if (matcher.matches()) {
+            vId = matcher.group(1)
+        }
+        return vId!!
     }
 
     private fun imageAnimation() {

@@ -93,6 +93,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:srcCompat="@drawable/ic_no_foto_vector"/>
 
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/yt_player"
+            android:visibility="gone"
+            app:autoPlay="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
@@ -141,7 +151,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/mainGroup"
             tools:visibility="visible"
-            app:constraint_referenced_ids="inputLayout, imageView, chipGroup, title, date" />
+            app:constraint_referenced_ids="inputLayout, show_picture_of_the_day_text, imageView, chipGroup, title, date" />
 
         <FrameLayout
             android:id="@+id/transparent_background"
